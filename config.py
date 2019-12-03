@@ -1,8 +1,9 @@
 import os
 
 class Config:
-    SECRET_KEY = 'amos'
-    SQLALCHEMY_DATABASE_URI='postgresql+psycopg2://ermoh:12345@localhost/groppy'
+
+    SECRET_KEY = '4n3%9bvrhb#*&vde4gbjbY&^$$^%Vvd456FCc'
+    
     # UPLOADED_PHOTOS_DEST ='app/static/photos'
     # MAIL_SERVER = 'smtp.googlemail.com'
     # MAIL_PORT = 587
@@ -11,19 +12,22 @@ class Config:
     # MAIL_PASSWORD = os.environ.get("MAIL_PASSWORD")
     # SIMPLEMDE_JS_IIFE = True
     # SIMPLEMDE_USE_CDN = True
-    @staticmethod
-    def init_app(app):
-        pass
+
+    # @staticmethod
+    # def init_app(app):
+    #     pass
     
 
 class ProdConfig(Config):
     pass
 
-class TestConfig(Config):
-    DEBUG =True 
-
 class DevConfig(Config):
+    SQLALCHEMY_DATABASE_URI='postgresql+psycopg2://pyra:lotus@localhost/e_may'
     DEBUG = True
+
+class TestConfig(Config):
+    SQLALCHEMY_DATABASE_URI='postgresql+psycopg2://pyra:lotus@localhost/e_may_test'
+    DEBUG =True 
 
 config_options = {
 'development':DevConfig,
