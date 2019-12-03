@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+
+    <title>E_May</title>
+</head>
+
+<style>
+    nav.navbar {
+        background-color: #ccc;
+        font-size: 20px;
+        padding-top: 35px;
+        color: #333;
+        transition: all 0.4s ease;
+        position: fixed;
+
+    }
+
+    nav.navbar.shrink {
+        min-height: 10px;
+        background-color: #ccc;
+        color: #fff !important;
+        padding-top: 7px;
+    }
+
+    .site-title {
+        font-size: 30px;
+        color: black;
+    }
+
+    .top-nav {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        text-align: center;
+    }
+
+    .top-nav li {
+        display: inline-block;
+        color: black;
+    }
+
+    .top-nav li:last-child {
+        padding-right: 0;
+    }
+</style>
+
+<body>
+
+    <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+
+        <div class="col-sm-6">
+            <div class="site-title">E_May</div>
+        </div>
+
+        <ul class="top-nav">
+            <a href="">
+                <li>News</li>
+            </a>
+        </ul>
+        <ul class="top-nav">
+            <a href="">
+                <li>Solutions</li>
+            </a>
+        </ul>
+
+        <div class="dropdown">
+            <a class="dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
+                aria-expanded="false">
+                Emergency Type
+            </a>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <a class="dropdown-item" href="">Accident</a>
+                <a class="dropdown-item" href="">Floods</a>
+                <a class="dropdown-item" href="">Earthquakes</a>
+                <a class="dropdown-item" href="">Flu</a>
+                <a class="dropdown-item" href="">Fire</a>
+                <a class="dropdown-item" href="">Landslide</a>
+                <a class="dropdown-item" href="">Power Outage</a>
+                <a class="dropdown-item" href="">Terroism</a>
+                <a class="dropdown-item" href="">Wildfire</a>
+            </div>
+        </div>
+        <ul class="top-nav">
+            <a href="">
+                <li>Login</li>
+            </a>
+        </ul>
+    </nav>
+
+   
+    <script>
+        $(window).scroll(function () {
+            if ($(document).scrollTop() > 50) {
+                $('nav').addClass('shrink');
+            } else {
+                $('nav').removeClass('shrink');
+            }
+        });
+    </script>
+
+
+
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</body>
+
+</html>
