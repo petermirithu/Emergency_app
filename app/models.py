@@ -62,4 +62,7 @@ class Emergency(db.Model):
     def get_emergencies(cls,category):
         emergencies = Emergency.query.filter_by(category=category).all()
         return emergencies
+
+    def __repr__(self):
+        return f'Emergency {self.category}'    
     
