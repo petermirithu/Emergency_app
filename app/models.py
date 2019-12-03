@@ -4,6 +4,10 @@ from flask_login import UserMixin
 from . import login_manager
 from datetime import datetime
 
+@login_manager.user_loader
+def load_user(user_id):
+        return User.query.get(int(user_id))
+
 class User(db.Model):
     __tablename__ = 'users'
     id = db.Column(db.Integer,primary_key = True)
@@ -17,16 +21,13 @@ class User(db.Model):
         raise AttributeError('Password attribute cannot be read')
 
     @password.setter
-    def password(self.password):
+    def password(self,password):
         self.pass_secure = generate_password_hash(password)
 
     def verify_password(self,password):
-        return check_password_hash(self.pass_secure.password)
+        return check_password_hash(self.pass_secure,password)
 
-    @login_manager.user_loader
-    def load_user(user_id):
-         return User.query.get(int(user_id))
-
+    
     def __repr__(self):
         return f'User {self.username}'
 
@@ -46,8 +47,9 @@ class Emergency(db.Model):
         db.session.add(self)
         db.session.commit()
 
-    # get all emergencies
-    def get_emergencies():
-        emergencies = Emergency.query.all()
+    # get all emergencies by category
+    @classmethod
+    def get_emergencies(cls,category):
+        emergencies = Emergency.query.filter_by(category=category).all()
         return emergencies
     
