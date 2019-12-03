@@ -2,7 +2,8 @@ import os
 
 class Config:
     SECRET_KEY = 'amos'
-    SQLALCHEMY_DATABASE_URI='postgresql+psycopg2://ermoh:12345@localhost/groppy'
+    SQLALCHEMY_DATABASE_URI='postgresql+psycopg2://dan:12345@localhost/groppy'
+
     # UPLOADED_PHOTOS_DEST ='app/static/photos'
     # MAIL_SERVER = 'smtp.googlemail.com'
     # MAIL_PORT = 587
