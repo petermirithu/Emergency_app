@@ -5,7 +5,8 @@ class Config:
     General configuration parent class
     '''
     SECRET_KEY = 'amos'
-    SQLALCHEMY_DATABASE_URI='postgresql+psycopg2://ermoh:12345@localhost/groppy'
+    SQLALCHEMY_DATABASE_URI='postgresql+psycopg2://dan:12345@localhost/groppy'
+
     # UPLOADED_PHOTOS_DEST ='app/static/photos'
     # MAIL_SERVER = 'smtp.googlemail.com'
     # MAIL_PORT = 587
@@ -22,16 +23,22 @@ class Config:
     @staticmethod
     def init_app(app):
         pass
+
+    # @staticmethod
+    # def init_app(app):
+    #     pass
     
 
 class ProdConfig(Config):
     pass
 
-class TestConfig(Config):
-    DEBUG =True 
-
 class DevConfig(Config):
+    SQLALCHEMY_DATABASE_URI='postgresql+psycopg2://pyra:lotus@localhost/e_may'
     DEBUG = True
+
+class TestConfig(Config):
+    SQLALCHEMY_DATABASE_URI='postgresql+psycopg2://pyra:lotus@localhost/e_may_test'
+    DEBUG =True 
 
 config_options = {
 'development':DevConfig,
