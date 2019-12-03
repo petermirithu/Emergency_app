@@ -25,7 +25,7 @@ def emergency(category):
   title=category
 
   emergencies=Emergency.get_emergencies(category)
-
+  
   return render_template('emergency.html',title=title,emergencies=emergencies)
 
 @main.route('/emergency/conversation/<int:id>', methods=['GET','POST'])
@@ -36,7 +36,7 @@ def convo(id):
   # emergency=Emergency.query.filter_by(id=id).first()
   form = ConvoForm()
   title='Conversations'
-  convos=Conversation.get_convos(id)
+  convos=Conversation.get_convos(id)  
 
   if form.validate_on_submit():
     new_convo=Conversation(emergency_id=id,convo=form.convo.data,posted_by=current_user.username)

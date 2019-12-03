@@ -20,11 +20,11 @@
     </div>   
 
 
-    {% if emergency.victim==current.username %}
+    {% if emergency.victim==current.username %}      
       <a class="btn btn-outline-success" href="{{url_for('main.convo',id=convo.id)}}">Conversations</a>
       <a class="btn btn-outline-primary" href="">Update Emergency</a>
       <a class="btn btn-outline-danger" href="">Delete Emergency</a>
-    {% else %}  
+    {% else %}        
       <a class="btn btn-outline-success" href="{{url_for('main.convo',id=convo.id)}}">Conversations</a>
     {% endif %}
     
