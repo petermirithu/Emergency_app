@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block styles %}
+  {{super()}}
+  <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='css/emergency.css')}}">
+{% endblock styles %}
+
+{% block content %}
+<div class="container-fluid">
+  <div class="row">
+  {% for emergency in emergencies %}
+  
+  <div class="card bg-dark">
+    <div class="card-header">{{emergency.category}}</div>
+    <div class="card-body">{{emergency.description}}</div>
+    <div class="card-footer">
+      <small class="text-muted">{{emergency.victim}}</small>
+      <small class="text-muted">{{emergency.posted}}</small>
+      <small class="text-muted">{{emergency.location}}</small>
+    </div>    
+
+  </div>
+  {% endfor %}
+  </div>
+</div>
+
+{% endblock content %}
