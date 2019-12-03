@@ -1,0 +1,6 @@
+virtual/
+
+*.pyc
+
+*sh
+
