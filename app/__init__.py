@@ -14,4 +14,6 @@ def create_app(config_name):
     bootstrap.init_app(app)
     db.init_app(app)
     
-    
+    # setting config
+    from .request import configure_request
+    configure_request(app)

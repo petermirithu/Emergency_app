@@ -14,5 +14,21 @@ def configure_request(app):
     source_url= app.config['NEWS_API_SOURCE_URL']
     cat_url=app.config['CAT_API_URL']
 
+def get_source():
+    '''
+    Function that gets the json response to url request
+    '''
+    get_source_url= source_url.format('d375c375d9414540b4b87ffc36728e98')
+    # print(get_source_url)
+    with urllib.request.urlopen(get_source_url) as url:
+        get_sources_data = url.read()
+        get_sources_response = json.loads(get_sources_data)
 
+        source_results = None
+
+        if get_sources_response['sources']:
+            source_results_list = get_sources_response['sources']
+            source_results = process_results(source_results_list)
+
+    return source_results
     
