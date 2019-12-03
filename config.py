@@ -1,9 +1,12 @@
 import os
 
 class Config:
+    '''
+    General configuration parent class
+    '''
+    SECRET_KEY = 'amos'
+    SQLALCHEMY_DATABASE_URI='postgresql+psycopg2://dan:12345@localhost/groppy'
 
-    SECRET_KEY = '4n3%9bvrhb#*&vde4gbjbY&^$$^%Vvd456FCc'
-    
     # UPLOADED_PHOTOS_DEST ='app/static/photos'
     # MAIL_SERVER = 'smtp.googlemail.com'
     # MAIL_PORT = 587
@@ -12,6 +15,14 @@ class Config:
     # MAIL_PASSWORD = os.environ.get("MAIL_PASSWORD")
     # SIMPLEMDE_JS_IIFE = True
     # SIMPLEMDE_USE_CDN = True
+  
+    NEWS_API_SOURCE_URL='https://newsapi.org/v2/sources?apiKey={}'
+    NEWS_API_KEY=os.environ.get('NEWS_API_KEY')
+    CAT_API_URL='https://newsapi.org/v2/top-headlines?country=kenya&category={}&apiKey={}'
+
+    @staticmethod
+    def init_app(app):
+        pass
 
     # @staticmethod
     # def init_app(app):

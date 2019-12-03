@@ -1,0 +1,43 @@
+{% extends 'bootstrap/base.html' %}
+
+<!doctype html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <!-- title -->
+    {% if title %}
+    <title> {{ title }}</title>
+    {% else %}
+    <title> E_May </title>
+    {% endif %}
+
+
+    <!-- styles block -->
+    {%block styles %}
+    {{super()}}
+    <link rel="stylesheet" href="{{url_for('static',filename='styles.css')}}">
+    {% endblock %}
+
+
+
+</head>
+
+<body>
+
+
+    <!-- Navbar block  -->
+    {% block navbar %}
+    {% include 'navbar.html' %}
+    {% endblock %}
+
+    <!-- content block -->
+    {% block content %}
+    {% endblock %}
+
+</body>
+
+</html>
