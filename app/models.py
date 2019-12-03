@@ -7,6 +7,16 @@ from datetime import datetime
 @login_manager.user_loader
 def load_user(user_id):
         return User.query.get(int(user_id))
+class Source:
+    '''
+    Source class to define source objects
+    '''
+    def __init__(self,id,name,description,url):
+        self.id = id
+        self.name = name
+        self.description = description
+        self.url = url
+
 
 class User(db.Model):
     __tablename__ = 'users'

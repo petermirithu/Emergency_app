@@ -21,6 +21,10 @@ def create_app(config_name):
     # Initializing flask extensions
     bootstrap.init_app(app)
     db.init_app(app)
+    
+    # setting config
+    from .request import configure_request
+    configure_request(app)
     login_manager.init_app(app)
 
 # register auth blueprint
