@@ -1,3 +1,5 @@
+from datetime import datetime
+
 class Emergency(db.Model):
     __tablename__ = 'emergency'
 
@@ -5,6 +7,8 @@ class Emergency(db.Model):
     victim = db.Column(db.String,index = True)
     category = db.Column(db.String)
     description = db.Column(db.String)
+    location = db.Column(db.String)
+    posted = db.Column(db.DateTime,default = datetime.utcnow)
 
     # save emergency
     def save_emergency(self):
