@@ -1,3 +1,4 @@
+
 <!doctype html>
 <html lang="en">
 
@@ -21,7 +22,6 @@
         padding: 0;
         box-sizing: border-box;
         font-family: "Quicksand", sans-serif;
-        font-size: 62.5%;
     }
 
     .nav {
@@ -31,6 +31,8 @@
         line-height: 65px;
         text-align: center;
         background-color: black;
+        z-index: 9999;
+
     }
 
     .nav div.logo {
@@ -43,14 +45,15 @@
     .nav div.logo a {
         text-decoration: none;
         color: #fff;
-        font-size: 3rem;
+        font-size: 2rem;
     }
 
 
     /* /////////// */
-    #drop{
+    #drop {
         background-color: black !important;
     }
+
     .nav div.main_list {
         height: 65px;
         float: right;
@@ -76,20 +79,21 @@
         text-decoration: none;
         color: #fff;
         line-height: 65px;
-        font-size: 2.4rem;
+        font-size: 1.2rem;
     }
 
     .nav div.main_list ul li a:hover {
         color: rgb(248, 130, 114);
+        cursor: pointer !important;
     }
 
-    .bb{
+    .bb {
         font-size: 2.4rem !important;
         color: #fff !important;
     }
 
-    .bb:hover{
-        color: rgb(248, 130, 114)!important;
+    .bb:hover {
+        color: rgb(248, 130, 114) !important;
     }
 
 
@@ -397,16 +401,20 @@
     <nav class="nav">
         <div class="container">
             <div class="logo">
-                <a href="#">E_May</a>
+                <a href="/">E_May</a>
             </div>
+
             <div id="mainListDiv" class="main_list">
                 <ul class="navlinks">
-                    <li><a href="">News</a></li>
+                    <!-- authentication -->
+                    {% if current_user.is_authenticated %}
+                    <li><a href="/new_post" class="nav-item nav-link">News</a></li>
+                    <li><a href="{{url_for('auth.logout')}}" class="nav-item nav-link">Sign Out</a></li>
                     <li><a href="">Solutions</a></li>
                     <li><a href="">Services</a></li>
                     <!-- emergency drop down -->
                     <div class="dropdown">
-                        <a  class="bb" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
+                        <a class="bb" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
                             aria-expanded="false">
                             Emergency Type
                         </a>
@@ -423,7 +431,15 @@
                             <li><a class="dropdown-item" href="/emergency/Wildfire">Wildfire</a></li>
                         </div>
                     </div>
-                    <li><a href="" style="margin-left: 20px;">Login</a></li>
+                    {% else %}
+                    <ul class="navlinks">
+                        <li>
+                            <a href="{{url_for('auth.login')}}" class="nav-item nav-link"
+                                style="margin-left: 170px;">LogIn</a>
+                        </li>
+                        <li><a href="{{url_for('auth.register')}}" class="nav-item nav-link">Sign up</a></li>
+                        {% endif %}
+                    </ul>
                 </ul>
 
             </div>
@@ -434,7 +450,7 @@
             </span>
         </div>
     </nav>
-    
+
 
     <!-- Jquery needed -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
@@ -445,7 +461,7 @@
         $(window).scroll(function () {
             if ($(document).scrollTop() > 50) {
                 $('.nav').addClass('affix');
-                
+
                 console.log("OK");
             } else {
                 $('.nav').removeClass('affix');

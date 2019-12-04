@@ -18,7 +18,7 @@ class Source:
         self.url = url
 
 
-class User(db.Model):
+class User(UserMixin,db.Model):
     __tablename__ = 'users'
     id = db.Column(db.Integer,primary_key = True)
     username = db.Column(db.String(255))
@@ -124,6 +124,23 @@ class Reply(db.Model):
         replies=Reply.query.filter_by(convo_id=id).all()
         return replies
 
+class Solution(db.Model):
+    '''
+    this is responsible for making solutions
+    '''
+    id = db.Column(db.Integer, primary_key = True)
+    body = db.Column(db.String)
+    title = db.Column(db.String)
+    posted_by = db.Column(db.String)
+    category = db.Column(db.String)
+    posted_on = db.Column(db.DateTime, default = datetime.utcnow)
+
+    # save solution
+    def save_solution(self):
+        db.session.add(self)
+        db.session.commit()
+    
+    
 class Subscribers(db.Model):
     '''
     Class that contains the subscribers table
@@ -138,6 +155,17 @@ class Subscribers(db.Model):
         '''
         db.session.add(self)
         db.session.commit()
+
+class Article:
+    '''
+    Class that instantiates objects of the news article objects of the news sources
+    '''
+    def __init__(self,author,description,url,image,title):
+        self.author = author
+        self.description = description
+        self.url = url
+        self.image = image
+        self.title = title
 
 
 

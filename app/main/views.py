@@ -1,19 +1,26 @@
+<<<<<<< HEAD
+from ..models import Emergency,User,Conversation,Reply,Solution
+from .forms import EmergencyForm,ConvoForm,SolutionsForm
+from .. import db
+=======
 from ..models import Emergency,User,Subscribers
 from .forms import EmergencyForm,SubscriberForm
 from ..models import Emergency,User,Conversation,Reply
 from .forms import EmergencyForm,ConvoForm,UpdateProfile,chatboxForm
 from .. import db,photos
+>>>>>>> 25430fb1f81ad2ab2702b39d1edfade64aa37fb9
 from . import main
 from flask import render_template,redirect,url_for,abort,request
 from flask_login import login_required,current_user
 from ..email import mail_message
+from ..request import article_source
 
 @main.route('/', methods = ['GET','POST'])
 def index():
   EmerForm = EmergencyForm()
 
   if EmerForm.validate_on_submit():
-      new_emergency = Emergency(victim = current_user.username,location = location, category = EmerForm.category.data, description = EmerForm.description.data) 
+      new_emergency = Emergency(victim = current_user.username,location = EmerForm.location.data, category = EmerForm.category.data, description = EmerForm.description.data) 
       new_emergency.save_emergency()
 
       subscriber = Subscribers.query.all()
@@ -83,6 +90,45 @@ def reply(id):
 
   return render_template('reply.html',ConvoForm=form,title=title,replies=replies)  
 
+
+@main.route('/emergency/new/solution', methods = ['GET','POST'])
+def solutionForm():
+  '''
+  views function that renders the solution form template in the solution.html
+  '''
+
+  form = SolutionsForm
+  title = ' new solution'
+
+  if form.validate_on_submit():
+    new_solution = Solution(body =form.solution.data ,title =form.title.data ,posted_by =current_user.username,category = form.category.data )
+
+    new_solution.save_solution()
+
+    return redirect(url_for('.solution'))
+
+  return render_template('solution_form.html',form = form)
+
+@main.route('/emergency/solution', methods = ['GET','POST'])
+def solution():
+  '''
+  this view function is responsible for displaying our the solution on solution.html
+  '''
+  accidentSol = Solution.get_solution_by_category(Accident)
+  floodSol = Solution.get_solution_by_category(Floods)
+  earthquakeSol = Solution.get_solution_by_category(Earthquakes)
+  fluSol = Solution.get_solution_by_category(Flu)
+  landslideSol = Solution.get_solution_by_category(Landslide)
+  fireSol = Solution.get_solution_by_category(Fire)
+  powerSol = Solution.get_solution_by_category(PowerOutage)
+  terrorismSol = Solution.get_solution_by_category(Terrorism)
+  wildfireSol = Solution.get_solution_by_category(Wildfire)
+
+  return render_template('solution.html',accidents = accidentSol, floods = floodSol,earthquakes = earthquakeSol,flus = fluSol, landslides = landslideSol,fire = fireSol,power = powerSol,terrorism = terrorismSol,wildfire = wildfireSol)
+
+  
+
+
 @main.route('/chatbox', methods=['GET','POST'])
 def chatbox():
   '''
@@ -147,3 +193,12 @@ def update_pic(yusername):
     db.session.commit()
   return redirect(url_for('main.profile',yusername = yusername))
   
+
+@main.route('article/<id>')
+def article(id):
+  '''
+  view article page function that returns article details page and its data
+  '''
+  articles = article_source(id)
+  return render_template('news.html',articles=articles,id=id)
+
