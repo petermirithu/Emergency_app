@@ -65,4 +65,26 @@
         <p>no earthquake emergency solutions</p>
     {% endif %}
 
-    
+    {% if flus %}
+        <div class="card">
+            <div class="row">
+                {% for flu in flus %}
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="card-header">
+                                <h3>{{flu.title}}</h3>
+                            </div>
+                            <div class="card-body">
+                                <p>{{flu.body}} </p><br>
+                                <p><i>{{flu.posted_on}}</i></p>  
+                            </div>
+                        </div>
+                    </div>
+                {% endfor%}
+            </div>
+        </div>
+    {% else %}
+        <p>no flu emergency solutions</p>
+    {% endif %}
+
+   
