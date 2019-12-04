@@ -156,6 +156,17 @@ class Subscribers(db.Model):
         db.session.add(self)
         db.session.commit()
 
+class Article:
+    '''
+    Class that instantiates objects of the news article objects of the news sources
+    '''
+    def __init__(self,author,description,url,image,title):
+        self.author = author
+        self.description = description
+        self.url = url
+        self.image = image
+        self.title = title
+
 
 
 

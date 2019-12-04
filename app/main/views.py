@@ -13,6 +13,7 @@ from . import main
 from flask import render_template,redirect,url_for,abort,request
 from flask_login import login_required,current_user
 from ..email import mail_message
+from ..request import article_source
 
 @main.route('/', methods = ['GET','POST'])
 def index():
@@ -192,3 +193,12 @@ def update_pic(yusername):
     db.session.commit()
   return redirect(url_for('main.profile',yusername = yusername))
   
+
+@main.route('article/<id>')
+def article(id):
+  '''
+  view article page function that returns article details page and its data
+  '''
+  articles = article_source(id)
+  return render_template('news.html',articles=articles,id=id)
+
