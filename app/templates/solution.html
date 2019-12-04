@@ -21,4 +21,26 @@
     {% else %}
         <p>no accident emergency solutions</p>
     {% endif %}
+    {% if floods %}
+        <div class="card">
+            <div class="row">
+                {% for flood in floods %}
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="card-header">
+                                <h3>{{flood.title}}</h3>
+                            </div>
+                            <div class="card-body">
+                                <p>{{flood.body}} </p><br>
+                                <p><i>{{flood}.posted_on}}</i></p>  
+                            </div>
+                        </div>
+                    </div>
+                {% endfor%}
+            </div>
+        </div>
+    {% else %}
+        <p>no flood emergency solutions</p>
+    {% endif %}
+
    
