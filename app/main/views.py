@@ -2,7 +2,7 @@ from ..models import Emergency,User
 from .forms import EmergencyForm
 from ..models import Emergency,User,Conversation,Reply
 from .forms import EmergencyForm,ConvoForm,UpdateProfile
-from .. import db
+from .. import db,photos
 from . import main
 from flask import render_template,redirect,url_for,abort
 from flask_login import login_required,current_user
@@ -101,3 +101,18 @@ def update_profile(yusername):
     return redirect(url_for('.profile',yusername = user.username))
 
   return render_template('profile/update.html',form = form)
+
+@main.route('//user/<yusername>/update/pic',methods = ['POST'])
+login_required
+def update_pic(yusername):
+  '''
+  View function that will help a user upload a photo
+  '''
+  user = User.query.filter_by(username = yusername).first()
+  if 'photo' in request.files:
+    filename = photos.save(request.files['photo'])
+    path = f'photos/{filename}'
+    user.profile_pic_path = path
+    db.session.commit()
+  return redirect(url_for('main.profile',yusername = yusername))
+  
