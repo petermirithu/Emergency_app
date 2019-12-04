@@ -136,7 +136,11 @@ class Solution(db.Model):
         db.session.add(self)
         db.session.commit()
     
-    
+    # get solution by category
+    def get_solution_by_category(categoryname):
+        solutions = Solution.query.filter_by(category = categoryname).all()
+
+        return solutions
 
 
 
