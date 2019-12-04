@@ -18,11 +18,13 @@ class Source:
         self.url = url
 
 
-class User(db.Model):
+class User(UserMixin,db.Model):
     __tablename__ = 'users'
     id = db.Column(db.Integer,primary_key = True)
     username = db.Column(db.String(255))
     email = db.Column(db.String(255),unique = True,index = True)
+    bio = db.Column(db.String(255))
+    profile_pic_path = db.Column(db.String())
     pass_secure = db.Column(db.String(255))
 
 
@@ -30,10 +32,12 @@ class User(db.Model):
     def password(self):
         raise AttributeError('Password attribute cannot be read')
 
+    # Generating password hash
     @password.setter
     def password(self,password):
         self.pass_secure = generate_password_hash(password)
 
+    # Verify password
     def verify_password(self,password):
         return check_password_hash(self.pass_secure,password)
 
@@ -137,6 +141,20 @@ class Solution(db.Model):
         db.session.commit()
     
     
+class Subscribers(db.Model):
+    '''
+    Class that contains the subscribers table
+    '''
+    __tablename__ = 'subscribers'
+    id = db.Column(db.Integer,primary_key = True)
+    email = db.Column(db.String(255),unique=True,index = True)
+
+    def save_subscribers(self):
+        '''
+        Function to save all the subscribed emails
+        '''
+        db.session.add(self)
+        db.session.commit()
 
 
 

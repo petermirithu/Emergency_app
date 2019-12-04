@@ -1,0 +1,4 @@
+Hello {{user.username}};
+A new emergeny has just been posted .
+You can visit the app to see the emergency and its details.
+Thankyou and stay safe.

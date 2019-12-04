@@ -1,17 +1,30 @@
+<<<<<<< HEAD
 from ..models import Emergency,User,Conversation,Reply,Solution
 from .forms import EmergencyForm,ConvoForm,SolutionsForm
 from .. import db
+=======
+from ..models import Emergency,User,Subscribers
+from .forms import EmergencyForm,SubscriberForm
+from ..models import Emergency,User,Conversation,Reply
+from .forms import EmergencyForm,ConvoForm,UpdateProfile,chatboxForm
+from .. import db,photos
+>>>>>>> 25430fb1f81ad2ab2702b39d1edfade64aa37fb9
 from . import main
-from flask import render_template,redirect,url_for
+from flask import render_template,redirect,url_for,abort,request
 from flask_login import login_required,current_user
+from ..email import mail_message
 
 @main.route('/', methods = ['GET','POST'])
 def index():
   EmerForm = EmergencyForm()
 
   if EmerForm.validate_on_submit():
-      new_emergency = Emergency(victim = current_user.username,location = location, category = EmerForm.category.data, description = EmerForm.description.data) 
+      new_emergency = Emergency(victim = current_user.username,location = EmerForm.location.data, category = EmerForm.category.data, description = EmerForm.description.data) 
       new_emergency.save_emergency()
+
+      subscriber = Subscribers.query.all()
+      for my_subscriber in subscriber:
+        mail_message("New emergecy posted","email/new_emergency",my_subscriber.email,emergency = emergency)
 
       return redirect(url_for('.index'))
   
@@ -26,8 +39,18 @@ def emergency(category):
 
   emergencies=Emergency.get_emergencies(category)
   
+  
   return render_template('emergency.html',title=title,emergencies=emergencies)
 
+
+# Updating profile
+@main.route('/user/<yusername>')
+def profile(yusername):
+  user = User.query.filter_by(username = yusername).first()
+
+  if user is None:
+    abort(404)
+  return render_template('profile/profile.html',user = user)
 @main.route('/emergency/conversation/<int:id>', methods=['GET','POST'])
 def convo(id):
   '''
@@ -105,3 +128,67 @@ def solution():
   
 
 
+@main.route('/chatbox', methods=['GET','POST'])
+def chatbox():
+  '''
+  view function that renders chatbox html for chatting
+  '''
+  form=chatboxForm()  
+
+  if form.validate_on_submit():
+    while True:
+      if form.chatbox.data=='Accidents':
+        emergencies=Emergency.get_emergencies('Accidents')
+        
+        return render_template('emergency.html',emergencies=emergencies)
+
+      elif form.chatbox.data=='Floods':
+        emergencies=Emergency.get_emergencies('Floods')
+
+        return render_template('emergency.html',emergencies=emergencies)      
+
+      else:
+        break
+        
+
+
+  return render_template('chatbox.html', form=form)
+
+@main.route('/user/<yusername>/update',methods = ['GET','POST'])
+@login_required
+def update_profile(yusername):
+  '''
+  View function for rendering te update profile page
+  
+  Args:
+  yusername:The current user's username
+  '''
+  user = User.query.filter_by(username = yusername).first()
+  if user is None:
+    abort(404)
+
+  form = UpdateProfile()
+  if form .validate_on_submit():
+    user.bio = form.bio.data
+
+    db.session.add(user)
+    db.session.commit()
+
+    return redirect(url_for('.profile',yusername = user.username))
+
+  return render_template('profile/update.html',form = form)
+
+@main.route('//user/<yusername>/update/pic',methods = ['POST'])
+@login_required
+def update_pic(yusername):
+  '''
+  View function that will help a user upload a photo
+  '''
+  user = User.query.filter_by(username = yusername).first()
+  if 'photo' in request.files:
+    filename = photos.save(request.files['photo'])
+    path = f'photos/{filename}'
+    user.profile_pic_path = path
+    db.session.commit()
+  return redirect(url_for('main.profile',yusername = yusername))
+  
