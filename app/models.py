@@ -124,6 +124,20 @@ class Reply(db.Model):
         replies=Reply.query.filter_by(convo_id=id).all()
         return replies
 
+class Subscribers(db.Model):
+    '''
+    Class that contains the subscribers table
+    '''
+    __tablename__ = 'subscribers'
+    id = db.Column(db.Integer,primary_key = True)
+    email = db.Column(db.String(255),unique=True,index = True)
+
+    def save_subscribers(self):
+        '''
+        Function to save all the subscribed emails
+        '''
+        db.session.add(self)
+        db.session.commit()
 
 
 
