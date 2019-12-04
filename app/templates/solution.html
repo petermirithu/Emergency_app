@@ -1,0 +1,24 @@
+{% extends 'base.html'%}
+{% block content%}
+    {% if accidents %}
+        <div class="card">
+            <div class="row">
+                {% for accident in accidents %}
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="card-header">
+                                <h3>{{accident.title}}</h3>
+                            </div>
+                            <div class="card-body">
+                                <p>{{accident.body}} </p><br>
+                                <p><i>{{accident.posted_on}}</i></p>  
+                            </div>
+                        </div>
+                    </div>
+                {% endfor%}
+            </div>
+        </div>
+    {% else %}
+        <p>no accident emergency solutions</p>
+    {% endif %}
+   
