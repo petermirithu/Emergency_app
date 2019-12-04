@@ -4,9 +4,8 @@ class Config:
     '''
     General configuration parent class
     '''
-    SECRET_KEY = 'amos'
-    SQLALCHEMY_DATABASE_URI='postgresql+psycopg2://dan:12345@localhost/groppy'
-
+    SECRET_KEY = os.environ.get('SECRET_KEY')
+        
     # UPLOADED_PHOTOS_DEST ='app/static/photos'
     # MAIL_SERVER = 'smtp.googlemail.com'
     # MAIL_PORT = 587
@@ -19,26 +18,17 @@ class Config:
     NEWS_API_SOURCE_URL='https://newsapi.org/v2/sources?apiKey={}'
     NEWS_API_KEY=os.environ.get('NEWS_API_KEY')
     CAT_API_URL='https://newsapi.org/v2/top-headlines?country=kenya&category={}&apiKey={}'
-
-    @staticmethod
-    def init_app(app):
-        pass
-
-    # @staticmethod
-    # def init_app(app):
-    #     pass
-    
-
+        
 class ProdConfig(Config):
     pass
 
 class DevConfig(Config):
-    SQLALCHEMY_DATABASE_URI='postgresql+psycopg2://pyra:lotus@localhost/e_may'
     DEBUG = True
+    SQLALCHEMY_DATABASE_URI='postgresql+psycopg2://pyra:lotus@localhost/e_may'
 
 class TestConfig(Config):
-    SQLALCHEMY_DATABASE_URI='postgresql+psycopg2://pyra:lotus@localhost/e_may_test'
     DEBUG =True 
+    SQLALCHEMY_DATABASE_URI='postgresql+psycopg2://pyra:lotus@localhost/e_may_test'
 
 config_options = {
 'development':DevConfig,
