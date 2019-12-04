@@ -120,7 +120,18 @@ class Reply(db.Model):
         replies=Reply.query.filter_by(convo_id=id).all()
         return replies
 
+class Solution(db.Model):
+    '''
+    this is responsible for making solutions
+    '''
+    id = db.Column(db.Integer, primary_key = True)
+    body = db.Column(db.String)
+    title = db.Column(db.String)
+    posted_by = db.Column(db.String)
+    category = db.Column(db.String)
+    posted_on = db.Column(db.DateTime, default = datetime.utcnow)
 
+   
 
 
 
