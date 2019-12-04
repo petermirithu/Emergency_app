@@ -100,7 +100,7 @@ def solution():
   terrorismSol = Solution.get_solution_by_category(Terrorism)
   wildfireSol = Solution.get_solution_by_category(Wildfire)
 
-  return render_template('solution.html',accident = accidentSol, floods = floodSol,earthquake = earthquakeSol,flu = fluSol, landslide = landslideSol,fire = fireSol,power = powerSol,terrorism = terrorismSol,wildfire = wildfireSol)
+  return render_template('solution.html',accidents = accidentSol, floods = floodSol,earthquakes = earthquakeSol,flus = fluSol, landslides = landslideSol,fire = fireSol,power = powerSol,terrorism = terrorismSol,wildfire = wildfireSol)
 
   
 
