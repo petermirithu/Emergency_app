@@ -1,9 +1,10 @@
-from ..models import Emergency
+from ..models import Emergency,User
 from .forms import EmergencyForm
 from .. import db
 from . import main
-from flask import render_template,redirect,url_for
+from flask import render_template,redirect,url_for,abort
 from flask_login import login_required,current_user
+
 
 @main.route('/', methods = ['GET','POST'])
 def index():
@@ -28,3 +29,12 @@ def emergency(category):
 
   return render_template('emergency.html',title=title,emergencies=emergencies)
 
+
+# Updating profile
+@main.route('/user/<yusername>')
+def profile(yusername):
+  user = User.query.filter_by(username = yusername).first()
+
+  if user is None:
+    abort(404)
+  return render_template('profile/profile.html',user = user)
