@@ -13,7 +13,7 @@ def index():
   EmerForm = EmergencyForm()
 
   if EmerForm.validate_on_submit():
-      new_emergency = Emergency(victim = current_user.username,location = location, category = EmerForm.category.data, description = EmerForm.description.data) 
+      new_emergency = Emergency(victim = current_user.username,location = EmerForm.location.data, category = EmerForm.category.data, description = EmerForm.description.data) 
       new_emergency.save_emergency()
 
       subscriber = Subscribers.query.all()
