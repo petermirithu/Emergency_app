@@ -131,7 +131,13 @@ class Solution(db.Model):
     category = db.Column(db.String)
     posted_on = db.Column(db.DateTime, default = datetime.utcnow)
 
-   
+    # save solution
+    def save_solution(self):
+        db.session.add(self)
+        db.session.commit()
+    
+    
+
 
 
 
