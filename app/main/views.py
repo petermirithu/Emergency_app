@@ -6,7 +6,7 @@ from .. import db,photos
 from . import main
 from flask import render_template,redirect,url_for,abort,request
 from flask_login import login_required,current_user
-from .email import mail_message
+from ..email import mail_message
 
 @main.route('/', methods = ['GET','POST'])
 def index():
