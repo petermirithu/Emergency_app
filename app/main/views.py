@@ -1,5 +1,5 @@
 from ..models import Emergency,User,Conversation,Reply
-from .forms import EmergencyForm,ConvoForm
+from .forms import EmergencyForm,ConvoForm,chatboxForm
 from .. import db
 from . import main
 from flask import render_template,redirect,url_for
@@ -65,4 +65,30 @@ def reply(id):
     return redirect(url_for('main.reply',id=id))
 
   return render_template('reply.html',ConvoForm=form,title=title,replies=replies)  
+
+@main.route('/chatbox', methods=['GET','POST'])
+def chatbox():
+  '''
+  view function that renders chatbox html for chatting
+  '''
+  form=chatboxForm()  
+
+  if form.validate_on_submit():
+    while True:
+      if form.chatbox.data=='Accidents':
+        emergencies=Emergency.get_emergencies('Accidents')
+        
+        return render_template('emergency.html',emergencies=emergencies)
+
+      elif form.chatbox.data=='Floods':
+        emergencies=Emergency.get_emergencies('Floods')
+
+        return render_template('emergency.html',emergencies=emergencies)      
+
+      else:
+        break
+        
+
+
+  return render_template('chatbox.html', form=form)
 
