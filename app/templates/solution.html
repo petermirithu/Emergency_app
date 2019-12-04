@@ -87,4 +87,26 @@
         <p>no flu emergency solutions</p>
     {% endif %}
 
-   
+    {% if landslides %}
+        <div class="card">
+            <div class="row">
+                {% for landslide in landslides %}
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="card-header">
+                                <h3>{{landslide.title}}</h3>
+                            </div>
+                            <div class="card-body">
+                                <p>{{landslide.body}} </p><br>
+                                <p><i>{{landslide.posted_on}}</i></p>  
+                            </div>
+                        </div>
+                    </div>
+                {% endfor%}
+            </div>
+        </div>
+    {% else %}
+        <p>no landslide emergency solutions</p>
+    {% endif %}
+
+    
