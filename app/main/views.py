@@ -85,6 +85,23 @@ def solutionForm():
 
   return render_template('solution_form.html',form = form)
 
+@main.route('/emergency/solution', methods = ['GET','POST'])
+def solution():
+  '''
+  this view function is responsible for displaying our the solution on solution.html
+  '''
+  accidentSol = Solution.get_solution_by_category(Accident)
+  floodSol = Solution.get_solution_by_category(Floods)
+  earthquakeSol = Solution.get_solution_by_category(Earthquakes)
+  fluSol = Solution.get_solution_by_category(Flu)
+  landslideSol = Solution.get_solution_by_category(Landslide)
+  fireSol = Solution.get_solution_by_category(Fire)
+  powerSol = Solution.get_solution_by_category(PowerOutage)
+  terrorismSol = Solution.get_solution_by_category(Terrorism)
+  wildfireSol = Solution.get_solution_by_category(Wildfire)
 
+  return render_template('solution.html',accident = accidentSol, floods = floodSol,earthquake = earthquakeSol,flu = fluSol, landslide = landslideSol,fire = fireSol,power = powerSol,terrorism = terrorismSol,wildfire = wildfireSol)
+
+  
 
 
