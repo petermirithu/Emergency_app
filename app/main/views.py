@@ -1,9 +1,12 @@
+from ..models import Emergency,User,Subscribers
+from .forms import EmergencyForm,SubscriberForm
 from ..models import Emergency,User,Conversation,Reply
-from .forms import EmergencyForm,ConvoForm
-from .. import db
+from .forms import EmergencyForm,ConvoForm,UpdateProfile
+from .. import db,photos
 from . import main
-from flask import render_template,redirect,url_for
+from flask import render_template,redirect,url_for,abort
 from flask_login import login_required,current_user
+from .email import mail_message
 
 @main.route('/', methods = ['GET','POST'])
 def index():
@@ -25,9 +28,22 @@ def emergency(category):
   title=category
 
   emergencies=Emergency.get_emergencies(category)
+  subscriber = Subscribers.query.all()
+  for my_subscriber in sucscriber:
+    mail_message("New emergecy posted","email/new_emergency",my_subscriber.email,emergency = emergency)
+  return redirect(url_for('main.index'))
   
   return render_template('emergency.html',title=title,emergencies=emergencies)
 
+
+# Updating profile
+@main.route('/user/<yusername>')
+def profile(yusername):
+  user = User.query.filter_by(username = yusername).first()
+
+  if user is None:
+    abort(404)
+  return render_template('profile/profile.html',user = user)
 @main.route('/emergency/conversation/<int:id>', methods=['GET','POST'])
 def convo(id):
   '''
@@ -66,3 +82,41 @@ def reply(id):
 
   return render_template('reply.html',ConvoForm=form,title=title,replies=replies)  
 
+@main.route('/user/<yusername>/update',methods = ['GET','POST'])
+@login_required
+def update_profile(yusername):
+  '''
+  View function for rendering te update profile page
+  
+  Args:
+  yusername:The current user's username
+  '''
+  user = User.query.filter_by(username = yusername).first()
+  if user is None:
+    abort(404)
+
+  form = UpdateProfile()
+  if form .validate_on_submit():
+    user.bio = form.bio.data
+
+    db.session.add(user)
+    db.session.commit()
+
+    return redirect(url_for('.profile',yusername = user.username))
+
+  return render_template('profile/update.html',form = form)
+
+@main.route('//user/<yusername>/update/pic',methods = ['POST'])
+@login_required
+def update_pic(yusername):
+  '''
+  View function that will help a user upload a photo
+  '''
+  user = User.query.filter_by(username = yusername).first()
+  if 'photo' in request.files:
+    filename = photos.save(request.files['photo'])
+    path = f'photos/{filename}'
+    user.profile_pic_path = path
+    db.session.commit()
+  return redirect(url_for('main.profile',yusername = yusername))
+  

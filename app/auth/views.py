@@ -3,11 +3,16 @@ from . import auth
 from ..models import User
 from .forms import RegistrationForm,LoginForm
 from .. import db
-from flask_login import login_user
+from flask_login import login_user,logout_user,login_required
+
+
 
 
 @auth.route('/register',methods = ['GET','POST'])
 def register():
+    '''
+    View function for sign up
+    '''
     form = RegistrationForm()
     title = "New User"
     if form.validate_on_submit():
@@ -20,6 +25,9 @@ def register():
 
 @auth.route('/login',methods = ['GET','POST'])
 def login():
+    '''
+    View function for user login
+    '''
     login_form = LoginForm()
     if login_form.validate_on_submit():
         user = User.query.filter_by(email =login_form.email.data).first()
@@ -32,4 +40,8 @@ def login():
         title = "Log into E-MAY"
         return render_template('auth/login.html',login_form = login_form,title = title)
 
-
+@auth.route('/logout')
+@login_required
+def logout():
+    logout_user()
+    return redirect(url_for("main.index"))
