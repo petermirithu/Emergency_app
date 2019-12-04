@@ -1,5 +1,5 @@
 from ..models import Emergency,User,Subscribers
-from .forms import EmergencyForm
+from .forms import EmergencyForm,SubscriberForm
 from ..models import Emergency,User,Conversation,Reply
 from .forms import EmergencyForm,ConvoForm,UpdateProfile
 from .. import db,photos
@@ -28,6 +28,10 @@ def emergency(category):
   title=category
 
   emergencies=Emergency.get_emergencies(category)
+  subscriber = Subscribers.query.all()
+  for my_subscriber in sucscriber:
+    mail_message("New emergecy posted","email/new_emergency",my_subscriber.email,emergency = emergency)
+  return redirect(url_for('main.index'))
   
   return render_template('emergency.html',title=title,emergencies=emergencies)
 
