@@ -47,9 +47,9 @@ class Emergency(db.Model):
 
     id = db.Column(db.Integer,primary_key =True)
     victim = db.Column(db.String,index = True)
-    category = db.Column(db.String)
-    description = db.Column(db.String)
-    location = db.Column(db.String)
+    category = db.Column(db.String(255))
+    description = db.Column(db.String(255))
+    location = db.Column(db.String(255))
     posted = db.Column(db.DateTime,default = datetime.utcnow)
 
     # save emergency
@@ -62,4 +62,67 @@ class Emergency(db.Model):
     def get_emergencies(cls,category):
         emergencies = Emergency.query.filter_by(category=category).all()
         return emergencies
-    
+
+    def __repr__(self):
+        return f'Emergency {self.category}'    
+
+class Conversation(db.Model):   
+    '''
+    class that contains conversation table
+    '''
+    __tablename__="conversation"
+
+    id=db.Column(db.Integer,primary_key=True)
+    emergency_id=db.Column(db.Integer())
+    convo=db.Column(db.String(255))
+    posted_by=db.Column(db.String(255))
+    posted_on=db.Column(db.DateTime,default = datetime.utcnow)
+
+    def save_convo(self):
+        '''
+        function that saves a new convo
+        '''        
+        db.session.add(self)
+        db.session.commit()
+
+    @classmethod
+    def get_convos(clc,id):
+        '''
+        function that gets all convos for that particular emergency
+        '''
+        convos=Conversation.query.filter_by(emergency_id=id).all()
+        return convos
+
+class Reply(db.Model):   
+    '''
+    class that contains reply table
+    '''
+    __tablename__="reply"
+
+    id=db.Column(db.Integer,primary_key=True)
+    convo_id=db.Column(db.Integer())
+    reply=db.Column(db.String(255))
+    posted_by=db.Column(db.String(255))
+    posted_on=db.Column(db.DateTime,default = datetime.utcnow)
+
+    def save_reply(self):
+        '''
+        function that saves a new reply
+        '''        
+        db.session.add(self)
+        db.session.commit()
+
+    @classmethod
+    def get_replies(clc,id):
+        '''
+        function that gets all replies for that particular convo
+        '''
+        replies=Reply.query.filter_by(convo_id=id).all()
+        return replies
+
+
+
+
+
+
+
