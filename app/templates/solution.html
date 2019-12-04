@@ -43,4 +43,26 @@
         <p>no flood emergency solutions</p>
     {% endif %}
 
-   
+    {% if earthquakes%}
+        <div class="card">
+            <div class="row">
+                {% for earthquake in earthquakes %}
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="card-header">
+                                <h3>{{earthquake.title}}</h3>
+                            </div>
+                            <div class="card-body">
+                                <p>{{earthquake.body}} </p><br>
+                                <p><i>{{earthquake.posted_on}}</i></p>  
+                            </div>
+                        </div>
+                    </div>
+                {% endfor%}
+            </div>
+        </div>
+    {% else %}
+        <p>no earthquake emergency solutions</p>
+    {% endif %}
+
+    
