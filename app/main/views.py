@@ -1,7 +1,7 @@
 from ..models import Emergency,User
 from .forms import EmergencyForm
 from ..models import Emergency,User,Conversation,Reply
-from .forms import EmergencyForm,ConvoForm
+from .forms import EmergencyForm,ConvoForm,UpdateProfile
 from .. import db
 from . import main
 from flask import render_template,redirect,url_for,abort
@@ -78,3 +78,26 @@ def reply(id):
 
   return render_template('reply.html',ConvoForm=form,title=title,replies=replies)  
 
+@main.route('/user/<yusername>/update',methods = ['GET','POST'])
+@login_required
+def update_profile(yusername):
+  '''
+  View function for rendering te update profile page
+  
+  Args:
+  yusername:The current user's username
+  '''
+  user = User.query.filter_by(username = yusername).first()
+  if user is None:
+    abort(404)
+
+  form = UpdateProfile()
+  if form .validate_on_submit():
+    user.bio = form.bio.data
+
+    db.session.add(user)
+    db.session.commit()
+
+    return redirect(url_for('.profile',yusername = user.username))
+
+  return render_template('profile/update.html',form = form)
