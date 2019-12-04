@@ -1,5 +1,5 @@
-from ..models import Emergency,User,Conversation,Reply
-from .forms import EmergencyForm,ConvoForm
+from ..models import Emergency,User,Conversation,Reply,Solution
+from .forms import EmergencyForm,ConvoForm,SolutionsForm
 from .. import db
 from . import main
 from flask import render_template,redirect,url_for
@@ -65,4 +65,26 @@ def reply(id):
     return redirect(url_for('main.reply',id=id))
 
   return render_template('reply.html',ConvoForm=form,title=title,replies=replies)  
+
+
+@main.route('/emergency/new/solution', methods = ['GET','POST'])
+def solutionForm():
+  '''
+  views function that renders the solution form template in the solution.html
+  '''
+
+  form = SolutionsForm
+  title = ' new solution'
+
+  if form.validate_on_submit():
+    new_solution = Solution(body =form.solution.data ,title =form.title.data ,posted_by =current_user.username,category = form.category.data )
+
+    new_solution.save_solution()
+
+    return redirect(url_for('.solution'))
+
+  return render_template('solution_form.html',form = form)
+
+
+
 
