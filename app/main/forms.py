@@ -16,3 +16,10 @@ class ConvoForm(FlaskForm):
     '''
     convo=SelectField('Enter your text',validators=[Required()])     
     submit=SubmitField('post')   
+
+class UpdateProfile(FlaskForm):
+    '''
+    Class for defining the update profile form
+    '''
+    bio = TextAreaField('Write something about yourself',validators=[Required()])
+    submit = SubmitField('Submit')
