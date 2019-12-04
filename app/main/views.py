@@ -107,7 +107,7 @@ def update_profile(yusername):
   return render_template('profile/update.html',form = form)
 
 @main.route('//user/<yusername>/update/pic',methods = ['POST'])
-login_required
+@login_required
 def update_pic(yusername):
   '''
   View function that will help a user upload a photo
