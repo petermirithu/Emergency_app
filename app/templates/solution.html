@@ -2,6 +2,7 @@
 {% block content%}
     {% if accidents %}
         <div class="card">
+            <h2>Accidents</h2>
             <div class="row">
                 {% for accident in accidents %}
                     <div class="col-md-6">
@@ -21,8 +22,10 @@
     {% else %}
         <p>no accident emergency solutions</p>
     {% endif %}
+    
     {% if floods %}
         <div class="card">
+            <h2>Floods</h2>
             <div class="row">
                 {% for flood in floods %}
                     <div class="col-md-6">
@@ -45,6 +48,7 @@
 
     {% if earthquakes%}
         <div class="card">
+            <h2>Earthquakes</h2>
             <div class="row">
                 {% for earthquake in earthquakes %}
                     <div class="col-md-6">
@@ -67,6 +71,7 @@
 
     {% if flus %}
         <div class="card">
+            <h2>Flu outbreaks</h2>
             <div class="row">
                 {% for flu in flus %}
                     <div class="col-md-6">
@@ -89,6 +94,7 @@
 
     {% if landslides %}
         <div class="card">
+            <h2>landslides</h2>
             <div class="row">
                 {% for landslide in landslides %}
                     <div class="col-md-6">
@@ -108,5 +114,7 @@
     {% else %}
         <p>no landslide emergency solutions</p>
     {% endif %}
+
+{% endblock %}
 
     
