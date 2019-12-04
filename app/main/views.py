@@ -4,7 +4,7 @@ from ..models import Emergency,User,Conversation,Reply
 from .forms import EmergencyForm,ConvoForm,UpdateProfile
 from .. import db,photos
 from . import main
-from flask import render_template,redirect,url_for,abort
+from flask import render_template,redirect,url_for,abort,request
 from flask_login import login_required,current_user
 from .email import mail_message
 
@@ -15,6 +15,10 @@ def index():
   if EmerForm.validate_on_submit():
       new_emergency = Emergency(victim = current_user.username,location = location, category = EmerForm.category.data, description = EmerForm.description.data) 
       new_emergency.save_emergency()
+
+      subscriber = Subscribers.query.all()
+      for my_subscriber in subscriber:
+        mail_message("New emergecy posted","email/new_emergency",my_subscriber.email,emergency = emergency)
 
       return redirect(url_for('.index'))
   
@@ -28,10 +32,7 @@ def emergency(category):
   title=category
 
   emergencies=Emergency.get_emergencies(category)
-  subscriber = Subscribers.query.all()
-  for my_subscriber in sucscriber:
-    mail_message("New emergecy posted","email/new_emergency",my_subscriber.email,emergency = emergency)
-  return redirect(url_for('main.index'))
+  
   
   return render_template('emergency.html',title=title,emergencies=emergencies)
 
