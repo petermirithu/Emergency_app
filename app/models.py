@@ -7,18 +7,8 @@ from datetime import datetime
 @login_manager.user_loader
 def load_user(user_id):
         return User.query.get(int(user_id))
-class Source:
-    '''
-    Source class to define source objects
-    '''
-    def __init__(self,id,name,description,url):
-        self.id = id
-        self.name = name
-        self.description = description
-        self.url = url
 
-
-class User(db.Model):
+class User(UserMixin,db.Model):
     __tablename__ = 'users'
     id = db.Column(db.Integer,primary_key = True)
     username = db.Column(db.String(255))
@@ -66,6 +56,13 @@ class Emergency(db.Model):
     def get_emergencies(cls,category):
         emergencies = Emergency.query.filter_by(category=category).all()
         return emergencies
+
+    def delete_emergency(self):
+        '''
+        function that deletes an emergency from the database
+        '''
+        db.session.delete(self)
+        db.session.commit()    
 
     def __repr__(self):
         return f'Emergency {self.category}'    
@@ -124,6 +121,30 @@ class Reply(db.Model):
         replies=Reply.query.filter_by(convo_id=id).all()
         return replies
 
+class Solution(db.Model):
+    '''
+    this is responsible for making solutions
+    '''
+    id = db.Column(db.Integer, primary_key = True)
+    body = db.Column(db.String)
+    title = db.Column(db.String)
+    posted_by = db.Column(db.String)
+    category = db.Column(db.String)
+    posted_on = db.Column(db.DateTime, default = datetime.utcnow)
+
+    # save solution
+    def save_solution(self):
+        db.session.add(self)
+        db.session.commit()
+
+    @classmethod
+    def get_solution_by_category(cls,category):
+        '''
+        function that displays all solutions by categories
+        '''
+        solutions=Solution.query.filter_by(category=category).all()
+        return solutions        
+    
 class Subscribers(db.Model):
     '''
     Class that contains the subscribers table
@@ -138,6 +159,17 @@ class Subscribers(db.Model):
         '''
         db.session.add(self)
         db.session.commit()
+
+class Article:
+    '''
+    Class that instantiates objects of the news article objects of the news sources
+    '''
+    def __init__(self,author,description,url,image,title):
+        self.author = author
+        self.description = description
+        self.url = url
+        self.image = image
+        self.title = title
 
 
 

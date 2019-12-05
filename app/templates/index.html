@@ -1,7 +1,24 @@
 {% extends 'base.html'%}
-{% import 'botstrap/wtf.html' as wtf%}
+
+{% import 'bootstrap/wtf.html' as wtf%}
+
 {% block content%}
-    <div class="card">
-        {% wtf.quick_form(form)%}
-    </div> 
+<section>
+    <div class="container-fluid">
+        <h1 class="text-capitalize text-center">WELCOME TO E_MAY</h1>
+        <div class="row">
+            <div class="col-md-4"></div>
+            <div class="col-md-4">
+            {% if current_user.is_authenticated %}    
+                <div class="card">
+                    {{wtf.quick_form(form)}}
+                </div>
+            {% else %}    
+                <a class="btn btn-outline-success">Please Sign In/Sign Up</a>
+            {% endif %}
+            </div>
+            <div class="col-md-4"></div>
+        </div>
+    </div>
+</section>
 {% endblock%}

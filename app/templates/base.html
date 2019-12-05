@@ -17,9 +17,9 @@
 
 
     <!-- styles block -->
-    {%block styles %}
-    {{super()}}
-    <link rel="stylesheet" href="{{url_for('static',filename='styles.css')}}">
+    {% block styles %}
+        {{super()}}
+        <link rel="stylesheet" href="{{url_for('static',filename='styles.css')}}">
     {% endblock %}
 
 
@@ -36,6 +36,7 @@
 
     <!-- content block -->
     {% block content %}
+    
     {% endblock %}
 
 </body>

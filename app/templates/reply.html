@@ -3,22 +3,32 @@
 {% import 'bootstrap/wtf.html' as wtf %}
 
 {% block content %}
-<div class="container-fluid">
-<h1>Reply</h1>
-  <div class="row">
-    <div class="col-md-8">
-      <div class="card bg-light">
-      {% for reply in replies %}
-        <p>{{reply.reply}}</p>
-        <p><small class="text-muted">{{reply.posted_by}}</small></p>
-        <p><small class="text-muted">{{reply.posted_on.strftime('%Y-%m-%d')}}</small></p>
-      {% endfor %}
+<section>
+  <div class="container-fluid">
+    <h1>Reply for:</h1>
+    <div class="row">
+      <div class="col-md-8">
+        <div class="card bg-info">
+            <p>{{convo.convo}}</p>
+            <p><small class="text-muted">{{convo.posted_by}}</small></p>
+            <p><small class="text-muted">{{convo.posted_on.strftime('%Y-%m-%d')}}</small></p>
+        </div>    
+        <hr>
+        <h2>Replies</h2>
+        {% for reply in replies %}
+          <div class="card bg-light">
+            <p>{{reply.reply}}</p>
+            <p><small class="text-muted">{{reply.posted_by}}</small></p>
+            <p><small class="text-muted">{{reply.posted_on.strftime('%Y-%m-%d')}}</small></p>
+          </div>
+          <br>
+        {% endfor %}
+      </div>
+      <div class="col-md-4">
+        {{wtf.quick_form(ConvoForm)}}
       </div>
     </div>
-    <div class="colmd-4">
-      {{wtf.quick_form(ConvoForm)}}
-    </div>
   </div>
-</div>
 
+</section>
 {% endblock content %}

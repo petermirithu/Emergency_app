@@ -1,0 +1,125 @@
+{% extends 'base.html'%}
+{% block content%}
+   <section>
+   <h1 class="text-center">Solutions</h1>
+   <a class="btn-block btn-info" href="{{url_for('main.new_solution')}}">Post a Solution</a>
+     <h2>Accidents</h2>
+    {% if accidents %}
+        <div class="card">
+            <div class="row">
+                {% for accident in accidents %}
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="card-header">
+                                <h3>{{accident.title}}</h3>
+                            </div>
+                            <div class="card-body">
+                                <p>{{accident.body}} </p><br>
+                                <p><i>{{accident.posted_by}}</i></p>  
+                                <p><i>{{accident.posted_on.strftime('%Y-%m-%d')}}</i></p>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor%}
+            </div>
+        </div>
+    {% else %}
+        <p>no accident emergency solutions</p>
+    {% endif %}
+    
+    <h2>Floods</h2>
+    {% if floods %}
+        <div class="card">
+            <div class="row">
+                {% for flood in floods %}
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="card-header">
+                                <h3>{{flood.title}}</h3>
+                            </div>
+                            <div class="card-body">
+                                <p>{{flood.body}} </p><br>
+                                <p><i>{{flood.posted_on}}</i></p>  
+                            </div>
+                        </div>
+                    </div>
+                {% endfor%}
+            </div>
+        </div>
+    {% else %}
+        <p>no flood emergency solutions</p>
+    {% endif %}
+
+    <h2>Earthquakes</h2>
+    {% if earthquakes%}
+        <div class="card">
+            <div class="row">
+                {% for earthquake in earthquakes %}
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="card-header">
+                                <h3>{{earthquake.title}}</h3>
+                            </div>
+                            <div class="card-body">
+                                <p>{{earthquake.body}} </p><br>
+                                <p><i>{{earthquake.posted_on}}</i></p>  
+                            </div>
+                        </div>
+                    </div>
+                {% endfor%}
+            </div>
+        </div>
+    {% else %}
+        <p>no earthquake emergency solutions</p>
+    {% endif %}
+
+    <h2>Flu outbreaks</h2>
+    {% if flus %}
+        <div class="card">
+            <div class="row">
+                {% for flu in flus %}
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="card-header">
+                                <h3>{{flu.title}}</h3>
+                            </div>
+                            <div class="card-body">
+                                <p>{{flu.body}} </p><br>
+                                <p><i>{{flu.posted_on}}</i></p>  
+                            </div>
+                        </div>
+                    </div>
+                {% endfor%}
+            </div>
+        </div>
+    {% else %}
+        <p>no flu emergency solutions</p>
+    {% endif %}
+
+    <h2>landslides</h2>
+    {% if landslides %}
+        <div class="card">
+            <div class="row">
+                {% for landslide in landslides %}
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="card-header">
+                                <h3>{{landslide.title}}</h3>
+                            </div>
+                            <div class="card-body">
+                                <p>{{landslide.body}} </p><br>
+                                <p><i>{{landslide.posted_on}}</i></p>  
+                            </div>
+                        </div>
+                    </div>
+                {% endfor%}
+            </div>
+        </div>
+    {% else %}
+        <p>no landslide emergency solutions</p>
+    {% endif %}
+
+   </section>
+{% endblock %}
+
+    
