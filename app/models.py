@@ -43,7 +43,8 @@ class Emergency(db.Model):
     victim = db.Column(db.String,index = True)
     category = db.Column(db.String(255))
     description = db.Column(db.String(255))
-    location = db.Column(db.String(255))
+    latitude = db.Column(db.String(255))
+    longitude = db.Column(db.String(255))
     posted = db.Column(db.DateTime,default = datetime.utcnow)
 
     # save emergency
