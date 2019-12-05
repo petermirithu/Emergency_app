@@ -5,21 +5,34 @@
 {% block content %}
 <section>
   <div class="container-fluid">
-    <h1>Conversations</h1>
+    <h1>Conversations for:</h1>
     <div class="row">
-      <div class="col-md-8">
-        <div class="card bg-info">
-          {% for convo in convos %}
-          <p>{{convo.convo}}</p>
-          <p><small class="text-muted">{{convo.posted_by}}</small></p>
-          <p><small class="text-muted">{{convo.posted_on.strftime('%Y-%m-%d')}}</small></p>
-          {% endfor %}
+      <div class="col-md-8">        
+        <div class="card bg-dark">
+          <div style="color:lightblue" class="card-header">{{emergency.category}}</div>
+          <div style="color:lightblue" class="card-body">{{emergency.description}}</div>
+          <div class="card-footer">
+            <small class="text-muted">{{emergency.victim}}</small><br>
+            <small class="text-muted">{{emergency.posted.strftime('%Y-%m-%d')}}</small><br>
+            <small class="text-muted">{{emergency.location}}</small><br>
+          </div>
         </div>
+        <hr>
+        <h2>Chats</h2>
+          {% for convo in convos %}
+        <div class="card bg-info">
+            <p>{{convo.convo}}</p>
+            <p><small class="text-muted">{{convo.posted_by}}</small></p>
+            <p><small class="text-muted">{{convo.posted_on.strftime('%Y-%m-%d')}}</small></p>
+            <a class="btn btn-warning" href="{{url_for('main.reply',id=convo.id)}}">Reply</a>
+        </div>
+        <br>
+          {% endfor %}
       </div>
-      <div class="colmd-4">
+      <div class="col-md-4">
         {{wtf.quick_form(ConvoForm)}}
       </div>
     </div>
   </div>
 </section>
-{% endblock content %}
+{% endblock %}
