@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css" integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ==" crossorigin=""/>
+    <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"></script>
+​​​
+</head>
+<style>
+    #mapid{
+        height: 400px;
+    }
+</style>
+<body>
+    <div id="mapid"></div>
+    Map
+    <script>
+        const  mymap = L.map('mapid').setView([-1.283329963684082, 36.81666946411133], 13);
+        var marker = L.marker([-1.283329963684082, 36.81666946411133]).addTo(mymap);
+        const attribution = 
+            '&copy; <a href="https://www.openstreetmap.org/copyright">Openstreetmap</a> contributors';
+        
+        const tileUrl = "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+        const tiles = L.tileLayer(tileUrl, { attribution });
+        tiles.addTo(mymap)
+        marker.bindPopup("<b>Emergency location!</b><br>lets save lives").openPopup();
+        circle.bindPopup("I am a circle.");
+        polygon.bindPopup("I am a polygon.");
+    </script>
+</body>
+</html>

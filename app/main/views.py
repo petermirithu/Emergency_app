@@ -1,19 +1,40 @@
 from ..models import Emergency,User,Subscribers
-from .forms import EmergencyForm,SubscriberForm
 from ..models import Emergency,User,Conversation,Reply,Solution
-from .forms import EmergencyForm,ConvoForm,UpdateProfile,chatboxForm,SolutionsForm,Update_emergency
+from .forms import ConvoForm,UpdateProfile,chatboxForm,SolutionsForm,Update_emergency,SubscriberForm,EmergencyForm
 from .. import db,photos
 from . import main
 from flask import render_template,redirect,url_for,abort,request,flash
 from flask_login import login_required,current_user
 from ..email import mail_message
-from ..request import article_source
+from ..request import article_source,location
+import urllib.request,json
 
 @main.route('/', methods = ['GET','POST'])
 def index():
   title="Home"
- 
-  return render_template('index.html',title=title)
+  Form=SubscriberForm()
+  formE=EmergencyForm()
+
+  locations=location()
+  for x in locations:
+    lat=x.latitude
+    lon=x.longitude
+    latitude=lat
+    longitude=lon
+
+  if formE.validate_on_submit():
+    category=formE.category.data
+    description=formE.description.data
+
+    new_post=Emergency(category=category,description=description,latitude=latitude,longitude=longitude,victim=current_user.username)
+    new_post.save_emergency()
+
+    subscriber = Subscribers.query.all()
+    for my_subscriber in subscriber:
+      mail_message("New emergecy posted","email/new_emergency",my_subscriber.email,emergency = emergency)
+      return redirect(url_for('main.chatbox',category=new_post.category))
+
+  return render_template('index.html',title=title,subscriber_form=Form,formE=formE,locations=locations)
 
 @main.route('/emergency/<category>')
 def emergency(category):
@@ -33,7 +54,7 @@ def emergency(category):
 @login_required
 def profile(yusername):
   user = User.query.filter_by(username = yusername).first()
-  emergencies = Emergency.get_emergency_by_user(user.username)
+  emergencies = Emergency.get_emergency_by_user(user.victim)
 
   if user is None:
     abort(404)
@@ -118,6 +139,10 @@ def solution():
 
   return render_template('solution.html',accidents = accidentSol, floods = floodSol,earthquakes = earthquakeSol,flus = fluSol, landslides = landslideSol,fire = fireSol,power = powerSol,terrorism = terrorismSol,wildfire = wildfireSol)
 
+@main.route("/map")
+def map():
+
+  return render_template('map.html')
   
 
 
@@ -260,19 +285,29 @@ def delEmergency(id):
 
   return redirect(url_for('main.emergency',category=emergency_del.category))
 
-@main.route('/emergency/post')
-@login_required
-def post():
+# @main.route('/emergency/post')
+# @login_required
+# def post():
 
-  category=request.form['category']
-  description=request.form['description']
-  latitude=request.form['latitude']
-  longitude=request.form['longitude']
+#   category=request.form['category']
+#   description=request.form['description']
+#   send_url = 'http://freegeoip.net/json'
+#   r = request.get(send_url)
+#   j = json.loads(r.text)
+#   lat = j['latitude']
+#   lon = j['longitude']
+#   latitude=lat
+#   longitude=lon
 
-  new_post=Emergency(category=category,description=description,latitude=latitude,longitude)
-  new_post.save_emergency()
+#   new_post=Emergency(category=category,description=description,latitude=latitude,longitude=longitude)
+#   new_post.save_emergency()
 
-  subscriber = Subscribers.query.all()
-  for my_subscriber in subscriber:
-    mail_message("New emergecy posted","email/new_emergency",my_subscriber.email,emergency = emergency)
-    return redirect(url_for('main.chatbox',category=new_emergency.category))
+#   subscriber = Subscribers.query.all()
+#   for my_subscriber in subscriber:
+#     mail_message("New emergecy posted","email/new_emergency",my_subscriber.email,emergency = emergency)
+#     return redirect(url_for('main.chatbox',category=new_post.category))
+
+
+    
+
+
