@@ -45,6 +45,7 @@ def profile(yusername):
   if user is None:
     abort(404)
   return render_template('profile/profile.html',user = user)
+  
 @main.route('/emergency/conversation/<int:id>', methods=['GET','POST'])
 def convo(id):
   '''
