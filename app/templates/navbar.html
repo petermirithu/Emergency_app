@@ -432,9 +432,7 @@
             </div>
 
             <div id="mainListDiv" class="main_list">
-                <ul class="navlinks">
-                    <!-- authentication -->
-                    {% if current_user.is_authenticated %}
+                <ul class="navlinks">                    
                     <!-- emergency drop down -->
                     <div class="dropdown">
                         <a class="bb" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
@@ -456,6 +454,9 @@
                     </div>
                     <li><a href="{{url_for('main.article')}}" style="padding-left: 15px;">News</a></li>
                     <li><a href="{{url_for('main.solution')}}">Solutions</a></li>
+                                        
+                    <!-- authentication -->
+                    {% if current_user.is_authenticated %}
                     <li><a href="{{url_for('main.chatbox',category='none')}}">Services</a></li>
 
                     <div><a class="bb" id="dropdownMenuButton" data-toggle="dropdown"
