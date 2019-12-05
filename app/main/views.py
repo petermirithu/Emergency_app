@@ -45,7 +45,7 @@ def emergency(category):
   title=category
 
   emergencies=Emergency.get_emergencies(category)
-  
+        
   
   return render_template('emergency.html',title=title,emergencies=emergencies)
 
@@ -153,7 +153,7 @@ def chatbox(category):
   '''
   view function that renders chatbox html for chatting
   '''
-  form=chatboxForm()  
+
   if category=='Accidents':
     flash('Thank for Posting the emergency. Please call our \'First Aid & Rescue Team\': \' 0722233333 \' to assist you immediately')    
 
@@ -181,25 +181,43 @@ def chatbox(category):
   elif category=='Wildfire':
     flash('Thank for Posting the emergency. Please call our \'Fire Extinguisher Team & Animal rescue Team\' : \' 0700011111 \' to assist you immediately')      
   else:
-    flash("Chat With us......")  
+    flash("Welcome to Help centre......")  
               
+  form=chatboxForm()  
   if form.validate_on_submit():
-    while True:
-      if form.chatbox.data=='Accidents':
-        emergencies=Emergency.get_emergencies('Accidents')
-        
-        return render_template('emergency.html',emergencies=emergencies)
+    
+    if form.chatbox.data=='Accidents':
+      emergencies=Emergency.get_emergencies('Accidents')
+      
+      return render_template('emergency.html',emergencies=emergencies)
 
-      elif form.chatbox.data=='Floods':
-        emergencies=Emergency.get_emergencies('Floods')
+    elif form.chatbox.data=='Floods':
+      emergencies=Emergency.get_emergencies('Floods')
 
-        return render_template('emergency.html',emergencies=emergencies)      
+      return render_template('emergency.html',emergencies=emergencies) 
 
-      else:
-        break
-        
+    elif form.chatbox.data=='Help':
+      accidentSol = Solution.get_solution_by_category('Accidents')
+      floodSol = Solution.get_solution_by_category('Floods')
+      earthquakeSol = Solution.get_solution_by_category('Earthquakes')
+      fluSol = Solution.get_solution_by_category('Flu')
+      landslideSol = Solution.get_solution_by_category('Landslide')
+      fireSol = Solution.get_solution_by_category('Fire')
+      powerSol = Solution.get_solution_by_category('PowerOutage')
+      terrorismSol = Solution.get_solution_by_category('Terrorism')
+      wildfireSol = Solution.get_solution_by_category('Wildfire')
 
+      return render_template('solution.html',accidents = accidentSol, floods = floodSol,earthquakes = earthquakeSol,flus = fluSol, landslides = landslideSol,fire = fireSol,power = powerSol,terrorism = terrorismSol,wildfire = wildfireSol)
 
+    elif form.chatbox.data=='Home':
+      return redirect(url_for('main.index'))
+
+    elif form.chatbox.data=='News':  
+      return redirect(url_for('main.article'))
+    else:
+      flash('Did Not get that Message')
+
+  
   return render_template('chatbox.html', form=form)
 
 @main.route('/user/<yusername>/update',methods = ['GET','POST'])
@@ -263,15 +281,14 @@ def update_emergency(id):
   form=Update_emergency()
   if form.validate_on_submit():
     u_emergency.category=form.category.data
-    u_emergency.description=form.description.data
-    u_emergency.location=form.location.data
+    u_emergency.description=form.description.data    
 
     db.session.add(u_emergency)
     db.session.commit()
 
     return redirect(url_for('main.emergency',category=form.category.data))
 
-  return render_template('update_emergency',title=title,form=form)  
+  return render_template('updateemergency.html',title=title,form=form)  
 
 @main.route('/delEmergency/<int:id>')
 @login_required
