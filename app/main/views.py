@@ -12,6 +12,7 @@ from ..request import article_source
 @main.route('/', methods = ['GET','POST'])
 def index():
   EmerForm = EmergencyForm()
+  form = SubscriberForm()
 
   if EmerForm.validate_on_submit():
       new_emergency = Emergency(victim = current_user.username,location = EmerForm.location.data, category = EmerForm.category.data, description = EmerForm.description.data) 
@@ -23,7 +24,7 @@ def index():
 
       return redirect(url_for('main.chatbox',category=new_emergency.category))
   
-  return render_template('index.html', form = EmerForm)
+  return render_template('index.html',form = EmerForm,subscriber_form=form)
 
 @main.route('/emergency/<category>')
 def emergency(category):
