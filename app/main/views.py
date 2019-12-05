@@ -44,10 +44,12 @@ def emergency(category):
 @login_required
 def profile(yusername):
   user = User.query.filter_by(username = yusername).first()
+  emergencies = Emergency.get_emergency_by_user(user.username)
 
   if user is None:
     abort(404)
-  return render_template('profile/profile.html',user = user)
+  return render_template('profile/profile.html',user = user,emergencies = emergencies)
+
 
 @main.route('/emergency/conversation/<int:id>', methods=['GET','POST'])
 @login_required

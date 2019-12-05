@@ -64,6 +64,13 @@ class Emergency(db.Model):
         db.session.delete(self)
         db.session.commit()    
 
+    def get_emergency_by_user(cls,User):
+        '''
+        Function to get emergency by user who posted
+        '''
+        user_emergencies = Emergency.query.filter_by(victim = victim).all()
+        return user_emergencies
+
     def __repr__(self):
         return f'Emergency {self.category}'    
 
