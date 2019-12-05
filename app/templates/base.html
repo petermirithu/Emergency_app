@@ -15,11 +15,13 @@
     <title> E_May </title>
     {% endif %}
 
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 
     <!-- styles block -->
     {%block styles %}
     {{super()}}
     <link rel="stylesheet" href="{{url_for('static',filename='styles.css')}}">
+
     {% endblock %}
 
 
@@ -27,16 +29,18 @@
 </head>
 
 <body>
-
-
     <!-- Navbar block  -->
     {% block navbar %}
     {% include 'navbar.html' %}
     {% endblock %}
 
+
     <!-- content block -->
     {% block content %}
+    
     {% endblock %}
+
+
 
 </body>
 
