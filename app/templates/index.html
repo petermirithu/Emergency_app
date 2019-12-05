@@ -11,9 +11,82 @@
             <div class="col-md-4"></div>
             <div class="col-md-4">
             {% if current_user.is_authenticated %}    
-                <div class="card" style="width: 22rem;">
-                    <div class="card-body">
-                        {{wtf.quick_form(form)}}
+                <div class="card">
+                    <div class="card">
+
+                        <h5 class="card-header info-color white-text text-center py-4">
+                    
+                            <strong>Emergency Form</strong>
+    
+                        </h5>
+                    
+                        <!--Card content-->
+                    
+                        <div class="card-body px-lg-5">
+                    
+                            <!-- Form -->
+                    
+                            <form class="text-center" style="color: #757575;" action="{{url_for('main.post')}}">
+                    
+                                <div class="md-form mt-3">
+                    
+                                    <input type="text" id="description" class="form-control">
+                    
+                                    <label for="description">Brief description</label>
+
+                                </div>
+                    
+                                <div class="md-form">
+
+                    
+                                    <label for="category">Category</label>                    
+                                    <select id="category" class="form-control">
+                                        <option value=" ">Select a Crust:</option>                          
+                                        <option value="Accidents">Accidents</option>                          
+                                        <option value="Floods">Floods</option>                
+                                        <option value="Earthquakes">Earthquakes</option>                          
+                                        <option value="Flu">Flu</option>
+                                        <option value="Fire">Fire</option>
+                                        <option value="Landslide">Landslide</option>
+                                        <option value="PowerOutage">Power Outage</option>
+                                        <option value="Terrorism">Terrorism</option>
+                                        <option value="Wildfire">Wildfire</option>
+                                      </select>
+
+
+                                </div>
+                                <div class="md-form">
+                                    <p>get your location</p>
+                                    <button onclick="getlocation()">location</button>
+                                    <p id="demo"></p>
+                                    <script>
+                                        var x = document.getElementById("demo")
+
+                                        function getlocation(){
+                                            if (navigator.geolocation){
+                                                navigator.geolocation.getCurrentPosition(showPosition);                                            
+                                            } else{
+                                                x.innerHTML = "Geolocation is not supported by this browser."
+                                            }
+                                        }
+                                        function showPosition(position){
+                                            var latitude = position.coords.latitude;
+                                            var longitude = position.coords.longitude;
+                                            
+                                        }
+                                    </script>
+                                </div>
+                    
+                                
+                    
+                                <button class="btn btn-outline-info btn-rounded btn-block z-depth-0 my-4 waves-effect" type="submit">Submit</button>
+                    
+                            </form>
+                    
+                            <!-- Form -->
+                    
+                        </div>
+                    
                     </div>
                 </div>
             {% else %}    

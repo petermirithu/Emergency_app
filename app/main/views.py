@@ -11,20 +11,9 @@ from ..request import article_source
 
 @main.route('/', methods = ['GET','POST'])
 def index():
-  EmerForm = EmergencyForm()
-  form = SubscriberForm()
-
-  if EmerForm.validate_on_submit():
-      new_emergency = Emergency(victim = current_user.username,location = EmerForm.location.data, category = EmerForm.category.data, description = EmerForm.description.data) 
-      new_emergency.save_emergency()
-
-      subscriber = Subscribers.query.all()
-      for my_subscriber in subscriber:
-        mail_message("New emergecy posted","email/new_emergency",my_subscriber.email,emergency = emergency)
-
-      return redirect(url_for('main.chatbox',category=new_emergency.category))
-  
-  return render_template('index.html',form = EmerForm,subscriber_form=form)
+  title="Home"
+ 
+  return render_template('index.html',title=title)
 
 @main.route('/emergency/<category>')
 def emergency(category):
@@ -270,4 +259,20 @@ def delEmergency(id):
   emergency_del.delete_emergency()
 
   return redirect(url_for('main.emergency',category=emergency_del.category))
-  
+
+@main.route('/emergency/post')
+@login_required
+def post():
+
+  category=request.form['category']
+  description=request.form['description']
+  latitude=request.form['latitude']
+  longitude=request.form['longitude']
+
+  new_post=Emergency(category=category,description=description,latitude=latitude,longitude)
+  new_post.save_emergency()
+
+  subscriber = Subscribers.query.all()
+  for my_subscriber in subscriber:
+    mail_message("New emergecy posted","email/new_emergency",my_subscriber.email,emergency = emergency)
+    return redirect(url_for('main.chatbox',category=new_emergency.category))
