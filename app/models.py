@@ -7,16 +7,6 @@ from datetime import datetime
 @login_manager.user_loader
 def load_user(user_id):
         return User.query.get(int(user_id))
-class Source:
-    '''
-    Source class to define source objects
-    '''
-    def __init__(self,id,name,description,url):
-        self.id = id
-        self.name = name
-        self.description = description
-        self.url = url
-
 
 class User(UserMixin,db.Model):
     __tablename__ = 'users'
@@ -53,7 +43,8 @@ class Emergency(db.Model):
     victim = db.Column(db.String,index = True)
     category = db.Column(db.String(255))
     description = db.Column(db.String(255))
-    location = db.Column(db.String(255))
+    latitude = db.Column(db.String(255))
+    longitude = db.Column(db.String(255))
     posted = db.Column(db.DateTime,default = datetime.utcnow)
 
     # save emergency
@@ -66,6 +57,21 @@ class Emergency(db.Model):
     def get_emergencies(cls,category):
         emergencies = Emergency.query.filter_by(category=category).all()
         return emergencies
+
+    def delete_emergency(self):
+        '''
+        function that deletes an emergency from the database
+        '''
+        db.session.delete(self)
+        db.session.commit()    
+
+    @classmethod
+    def get_emergency_by_user(cls,user):
+        '''
+        Function to get emergency by user who posted
+        '''
+        user_emergencies = Emergency.query.filter_by(victim =user).all()
+        return user_emergencies
 
     def __repr__(self):
         return f'Emergency {self.category}'    
@@ -139,7 +145,14 @@ class Solution(db.Model):
     def save_solution(self):
         db.session.add(self)
         db.session.commit()
-    
+
+    @classmethod
+    def get_solution_by_category(cls,category):
+        '''
+        function that displays all solutions by categories
+        '''
+        solutions=Solution.query.filter_by(category=category).all()
+        return solutions        
     
 class Subscribers(db.Model):
     '''
@@ -168,6 +181,11 @@ class Article:
         self.title = title
 
 
+class Location:
+
+    def __init__(self,latitude,longitude):
+        self.latitude = latitude
+        self.longitude = longitude
 
 
 

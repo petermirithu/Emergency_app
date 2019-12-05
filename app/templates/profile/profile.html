@@ -5,6 +5,23 @@
 <section>
     <div class="container">
         <div class="row">
+            <div class="col-md-2"></div>
+            <!-- To display the profile picture -->
+            <div class="col-md-4">            
+                    {% if user.profile_pic_path %}
+                    <img class="card" src="{{url_for('static',filename=user.profile_pic_path)}}" alt="Profile Pic" class="img-thumbnail" width="250px" height="250px">
+                    {% else %}
+                    <p>No profile picture</p>
+                    {% endif %}
+                    {% if user == current_user %}
+                    <form action=" {{ url_for('main.update_pic',yusername = user.username) }} " method="POST"
+                        enctype="multipart/form-data">
+                        <input class="btn btn-outline-success"type="file" name="photo" class="form-control" required>
+                        <input class="btn btn-outline-primary" type="submit">
+                    </form>
+                    
+                    {% endif %}
+                </div>
             <!-- To display the username -->
             <div class="col-md-4">
                 <h2> {{user.username | capitalize}} </h2>
@@ -15,23 +32,58 @@
                 {% else %}
                 <p> {{user.username | capitalize}} has no bio </p>
                 {% endif %}
-            </div>
-            <!-- To display the profile picture -->
-            <div class="col-md-4">
-                {% if user.profile_pic_path %}
-                <img src=" {{url_for('static',filename = user.profile_pic_path)}} " alt="" class="imgthumbnail">
+                <a class="btn btn-outline-info" href=" {{url_for('main.update_profile',yusername = user.username)}} ">Update Bio</a>
+            </div>          
+            <div class="col-md-2"></div>
+            
+        </div>
+        <div class="row">
+            <h1 class="text-center">MY EMERGENCIES</h1>
+            <div class="col-md-2"></div>
+            <div class="col-md-8">                
+                {% if emergencies %}
+                    {% for emergency in emergencies %}
+                        <div class="col-md-6">
+                            <div style="margin-top:10px" class="card bg-dark">
+                                
+                                <div style="color:lightblue" class="card-header">{{emergency.category}}</div>
+                                <div style="color:lightblue" class="card-body">{{emergency.description}}</div>
+                                <div class="card-footer">
+                                <small class="text-muted">{{emergency.victim}}</small><br>
+                                <small class="text-muted">{{emergency.posted.strftime('%Y-%m-%d')}}</small><br>
+                                <small class="text-muted">{{emergency.location}}</small><br>
+                                </div>
+
+
+                                {% if emergency.victim==current_user.username %}
+                                    <div><a class="btn btn-outline-success" href="{{url_for('main.convo',id=emergency.id)}}">Conversations</a></div>
+                                    <div><a  class="btn btn-outline-danger" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Options</a>
+                                    <div id="drop" class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                        <a class="btn btn-outline-primary" href="">Update Emergency</a>
+                                        <a class="btn btn-outline-danger" href="">Delete Emergency</a>
+                                    </div>
+                                    </div>  
+                                    <div><a  class="btn btn-outline-info" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">View Map</a>  
+                                    <div id="drop" class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                        <div style="margin-left:20px;width:500px;height:500px" class="text-center">
+                                        {% block map %}
+                                            {% include 'map.html' %}
+                                        {% endblock map %}
+                                        </div>              
+                                    </div>    
+                                    </div>            
+                                {% else %}
+                                    <a class="btn btn-outline-success" href="{{url_for('main.convo',id=emergency.id)}}">Conversations</a>
+                                {% endif %}
+                            </div>
+                        </div>          
+                        <br>
+                        {% endfor %}
                 {% else %}
-                <p>No profile picture</p>
+                    {{user.username}} has not posted any emergencies
                 {% endif %}
-                {% if user === current_user %}
-                <form action=" {{ url_for('main.update_pic',yusername = user.username) }} " method="POST"
-                    enctype="multipart/form-data">
-                    <input type="file" name="photo" class="form-control" required>
-                    <input type="submit">
-                </form>
-                <a href=" {{url_for('main.update_profile',yusername = user.username)}} ">Edit Profile</a>
-                {% endif %}
-            </div>
+            </div>            
+            <div class="col-md-2"></div>
         </div>
     </div>
 </section>

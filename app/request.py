@@ -1,5 +1,5 @@
 import urllib.request,json
-from .models import Article
+from .models import Article,Location
 
 # Getting api key
 api_key = None
@@ -10,13 +10,11 @@ cat_url= None
 
 def configure_request(app):
     global api_key, source_url, cat_url
-    api_key ='d375c375d9414540b4b87ffc36728e98'
-    source_url= app.config['NEWS_API_SOURCE_URL']
+    api_key = app.config['NEWS_API_KEY']    
     cat_url=app.config['CAT_API_URL']
 
-def article_source(id):
-    article_source_url = 'https://newsapi.org/v2/everything?q=kenya{}&apiKey={}'.format(id,api_key)
-    print(article_source_url)
+def article_source():
+    article_source_url=cat_url.format(api_key)    
     with urllib.request.urlopen(article_source_url) as url:
         article_source_data = url.read()
         article_source_response = json.loads(article_source_data)
@@ -48,4 +46,33 @@ def process_articles_results(news):
 
     return article_source_results
 
-    
+def location():
+        # api_key="aef2987237152b5a1f74a260bdc84c91"
+        # send_url ='http://api.ipstack.com/172.30.39.151?access_key={}'
+
+        # loc=send_url.format(api_key)    
+        loc='http://api.ipstack.com/105.27.206.46?access_key=aef2987237152b5a1f74a260bdc84c91'
+        with urllib.request.urlopen(loc) as url:
+                data1= url.read()
+                response = json.loads(data1)        
+
+                results=process_location(response)          
+                
+        return results
+
+def process_location(item):
+  '''
+  function that processes the response from json format
+  '''
+  results=[]
+  
+  latitude=item.get('latitude')
+  longitude=item.get('longitude')
+
+  loc_object=Location(latitude,longitude)
+  results.append(loc_object)
+
+  return results  
+
+
+

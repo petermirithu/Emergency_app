@@ -14,10 +14,9 @@ class Config:
     MAIL_PASSWORD = os.environ.get("MAIL_PASSWORD")
     # SIMPLEMDE_JS_IIFE = True
     # SIMPLEMDE_USE_CDN = True
-  
-    NEWS_API_SOURCE_URL='https://newsapi.org/v2/sources?apiKey={}'
+      
     NEWS_API_KEY=os.environ.get('NEWS_API_KEY')
-    CAT_API_URL='https://newsapi.org/v2/top-headlines?country=kenya&category={}&apiKey={}'
+    CAT_API_URL='https://newsapi.org/v2/everything?q=kenya&apiKey={}'
         
 class ProdConfig(Config):
     pass
