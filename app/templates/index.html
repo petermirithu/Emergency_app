@@ -42,11 +42,13 @@
         <div class="row">
             <div class="col-md-4"></div>
             <div class="col-md-4">
-                <div class="card" style="width: 32rem;">
-                    <div class="card-body">
-                        {{wtf.quick_form(form)}}
-                    </div>
+            {% if current_user.is_authenticated %}    
+                <div class="card">
+                    {{wtf.quick_form(form)}}
                 </div>
+            {% else %}    
+                <a class="btn btn-outline-success">Please Sign In/Sign Up</a>
+            {% endif %}
             </div>
             <div class="col-md-4"></div>
         </div>

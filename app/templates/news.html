@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<section>
+  <h1 class="text-center">Emergencies</hi>
+  
+    <div class="row">
+      <div class="card-columns">              
+        {% for article in articles %}
+          <div class="card">
+            <img class="card" src="{{article.image}}" alt="Card image cap" width="300px" height="200px" margin-right="500px">
+            <h5 class="card-title"><strong>{{article.author}}</strong></h5>
+            <div class="card-body">
+              <p>{{article.description}}</p>
+              <a href="{{article.url}}">Read More</a>
+            </div>
+          </div>
+        {% endfor %}
+      </div>          
+    </div>
+  
+</section>  
+{% endblock %}

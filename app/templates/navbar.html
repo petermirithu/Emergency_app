@@ -408,10 +408,16 @@
                 <ul class="navlinks">
                     <!-- authentication -->
                     {% if current_user.is_authenticated %}
-                    <li><a href="/new_post" class="nav-item nav-link">News</a></li>
-                    <li><a href="{{url_for('auth.logout')}}" class="nav-item nav-link">Sign Out</a></li>
-                    <li><a href="">Solutions</a></li>
-                    <li><a href="">Services</a></li>
+                    <li><a href="{{url_for('main.article')}}" class="nav-item nav-link">News</a></li>                
+                    <li><a href="{{url_for('main.solution')}}">Solutions</a></li>
+                    <li><a href="{{url_for('main.chatbox',category='none')}}">Services</a></li>
+
+                    <div class="btn btn-outline-light"><a class="bb" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{current_user.username}}</a>
+                        <div id="drop" class="dropdown-menu" aria-labelledby="dropdownMenuButton">    
+                            <a href="{{url_for('main.profile',yusername=current_user.username)}}" class="dropdown-item" style="color:lightblue">Profile</a>
+                            <a href="{{url_for('auth.logout')}}" class="dropdown-item" style="color:lightblue">Sign Out</a>
+                        </div>
+                    </div>
                     <!-- emergency drop down -->
                     <div class="dropdown">
                         <a class="bb" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
@@ -420,7 +426,7 @@
                         </a>
 
                         <div id="drop" class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            <li><a class="dropdown-item" href="/emergency/Accident">Accident</a></li>
+                            <li><a class="dropdown-item" href="/emergency/Accidents">Accident</a></li>
                             <li><a class="dropdown-item" href="/emergency/Floods">Floods</a></li>
                             <li><a class="dropdown-item" href="/emergency/Earthquakes">Earthquakes</a></li>
                             <li><a class="dropdown-item" href="/emergency/Flu">Flu</a></li>
