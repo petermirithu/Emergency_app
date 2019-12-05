@@ -40,8 +40,8 @@
     <div class="container-fluid">
         <h3 class="text-capitalize text-center" style="padding-bottom: 40px;">Welcome to E_MAY</h3>
         <div class="row">
-            <div class="col-md-4"></div>
-            <div class="col-md-4">
+            <div class="col-md-5"></div>
+            <div class="col-md-5">
             {% if current_user.is_authenticated %}    
                 <div class="card">
                     {{wtf.quick_form(form)}}
@@ -50,7 +50,7 @@
                 <a class="btn btn-outline-success">Please Sign In/Sign Up</a>
             {% endif %}
             </div>
-            <div class="col-md-4"></div>
+            <div class="col-md-2"></div>
         </div>
     </div>
 </section>
