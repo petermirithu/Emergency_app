@@ -24,8 +24,8 @@
 
 
             {% if emergency.victim==current_user.username %}
-            <a class="btn btn-outline-success" href="{{url_for('main.convo',id=emergency.id)}}">Conversations</a>
-            <div ><a  class="btn btn-outline-danger" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Options</a>
+            <div><a class="btn btn-outline-success" href="{{url_for('main.convo',id=emergency.id)}}">Conversations</a></div>
+            <div><a  class="btn btn-outline-danger" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Options</a>
               <div id="drop" class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                 <a class="btn btn-outline-primary" href="">Update Emergency</a>
                 <a class="btn btn-outline-danger" href="">Delete Emergency</a>
@@ -33,7 +33,7 @@
             </div>  
             <div><a  class="btn btn-outline-info" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">View Map</a>  
               <div id="drop" class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                <div style="width:300px;height:300px" class="container-fluid">
+                <div style="margin-left:20px;width:500px;height:500px" class="text-center">
                   {% block map %}
                     {% include 'map.html' %}
                   {% endblock map %}

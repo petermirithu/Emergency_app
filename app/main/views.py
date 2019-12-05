@@ -32,7 +32,8 @@ def index():
     subscriber = Subscribers.query.all()
     for my_subscriber in subscriber:
       mail_message("New emergecy posted","email/new_emergency",my_subscriber.email,emergency = emergency)
-      return redirect(url_for('main.chatbox',category=new_post.category))
+      
+    return redirect(url_for('main.chatbox',category=new_post.category))
 
   return render_template('index.html',title=title,subscriber_form=Form,formE=formE,locations=locations)
 
@@ -285,27 +286,6 @@ def delEmergency(id):
 
   return redirect(url_for('main.emergency',category=emergency_del.category))
 
-# @main.route('/emergency/post')
-# @login_required
-# def post():
-
-#   category=request.form['category']
-#   description=request.form['description']
-#   send_url = 'http://freegeoip.net/json'
-#   r = request.get(send_url)
-#   j = json.loads(r.text)
-#   lat = j['latitude']
-#   lon = j['longitude']
-#   latitude=lat
-#   longitude=lon
-
-#   new_post=Emergency(category=category,description=description,latitude=latitude,longitude=longitude)
-#   new_post.save_emergency()
-
-#   subscriber = Subscribers.query.all()
-#   for my_subscriber in subscriber:
-#     mail_message("New emergecy posted","email/new_emergency",my_subscriber.email,emergency = emergency)
-#     return redirect(url_for('main.chatbox',category=new_post.category))
 
 
     
