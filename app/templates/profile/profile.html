@@ -17,13 +17,13 @@
                 {% endif %}
             </div>
             <!-- To display the profile picture -->
-            <div class="col-md-4">
+            <div class="col-md-4">            
                 {% if user.profile_pic_path %}
-                <img src=" {{url_for('static',filename = user.profile_pic_path)}} " alt="" class="imgthumbnail">
+                <img class="card" src="{{url_for('static',filename=user.profile_pic_path)}}" alt="Profile Pic" class="img-thumbnail" width="250px" height="250px">
                 {% else %}
                 <p>No profile picture</p>
                 {% endif %}
-                {% if user === current_user %}
+                {% if user == current_user %}
                 <form action=" {{ url_for('main.update_pic',yusername = user.username) }} " method="POST"
                     enctype="multipart/form-data">
                     <input type="file" name="photo" class="form-control" required>
