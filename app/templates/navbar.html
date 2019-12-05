@@ -51,17 +51,20 @@
 
     /* /////////// */
     #drop {
+        color: white !important;
         background-color: black !important;
+        margin: 0;
+
     }
 
     .nav div.main_list {
-        height: 65px;
+
         float: right;
     }
 
     .nav div.main_list ul {
         width: auto;
-        height: 65px;
+
         display: flex;
         list-style: none;
         margin: 0;
@@ -78,7 +81,6 @@
     .nav div.main_list ul li a {
         text-decoration: none;
         color: #fff;
-        line-height: 65px;
         font-size: 1.2rem;
     }
 
@@ -88,7 +90,7 @@
     }
 
     .bb {
-        font-size: 2.4rem !important;
+        font-size: 1.2rem !important;
         color: #fff !important;
     }
 
@@ -394,6 +396,19 @@
             padding: 2%;
         }
     }
+
+    #a {
+        color: white !important;
+        padding: 0;
+        margin: 0;
+        padding-bottom: 0;
+        padding-left: 20px !important;
+
+    }
+
+    #a:hover {
+        color: black !important;
+    }
 </style>
 
 <body>
@@ -408,14 +423,17 @@
                 <ul class="navlinks">
                     <!-- authentication -->
                     {% if current_user.is_authenticated %}
-                    <li><a href="{{url_for('main.article')}}" class="nav-item nav-link">News</a></li>                
+                    <li><a href="{{url_for('main.article')}}" class="nav-item nav-link">News</a></li>
                     <li><a href="{{url_for('main.solution')}}">Solutions</a></li>
                     <li><a href="{{url_for('main.chatbox',category='none')}}">Services</a></li>
 
-                    <div class="btn btn-outline-light"><a class="bb" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{current_user.username}}</a>
-                        <div id="drop" class="dropdown-menu" aria-labelledby="dropdownMenuButton">    
-                            <a href="{{url_for('main.profile',yusername=current_user.username)}}" class="dropdown-item" style="color:lightblue">Profile</a>
-                            <a href="{{url_for('auth.logout')}}" class="dropdown-item" style="color:lightblue">Sign Out</a>
+                    <div class="btn btn-outline-light"><a class="bb" id="dropdownMenuButton" data-toggle="dropdown"
+                            aria-haspopup="true" aria-expanded="false">{{current_user.username}}</a>
+                        <div id="drop" class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <a href="{{url_for('main.profile',yusername=current_user.username)}}" class="dropdown-item"
+                                style="color:lightblue">Profile</a>
+                            <a href="{{url_for('auth.logout')}}" class="dropdown-item" style="color:lightblue">Sign
+                                Out</a>
                         </div>
                     </div>
                     <!-- emergency drop down -->
