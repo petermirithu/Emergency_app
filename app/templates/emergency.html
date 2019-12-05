@@ -8,28 +8,35 @@
 {% block content %}
 <section>
   <div class="container-fluid">
+  <h1>{{title}}</h1>
     <div class="row">
       {% for emergency in emergencies %}
+        <div class="col-md-6">
+          <div style="margin-top:10px" class="card bg-dark">
+            <div style="color:lightblue" class="card-header">{{emergency.category}}</div>
+            <div style="color:lightblue" class="card-body">{{emergency.description}}</div>
+            <div class="card-footer">
+              <small class="text-muted">{{emergency.victim}}</small><br>
+              <small class="text-muted">{{emergency.posted.strftime('%Y-%m-%d')}}</small><br>
+              <small class="text-muted">{{emergency.location}}</small><br>
+            </div>
 
-      <div class="card bg-dark">
-        <div class="card-header">{{emergency.category}}</div>
-        <div class="card-body">{{emergency.description}}</div>
-        <div class="card-footer">
-          <small class="text-muted">{{emergency.victim}}</small>
-          <small class="text-muted">{{emergency.posted}}</small>
-          <small class="text-muted">{{emergency.location}}</small>
-        </div>
 
-
-        {% if emergency.victim==current.username %}
-        <a class="btn btn-outline-success" href="{{url_for('main.convo',id=convo.id)}}">Conversations</a>
-        <a class="btn btn-outline-primary" href="">Update Emergency</a>
-        <a class="btn btn-outline-danger" href="">Delete Emergency</a>
-        {% else %}
-        <a class="btn btn-outline-success" href="{{url_for('main.convo',id=convo.id)}}">Conversations</a>
-        {% endif %}
-
-      </div>
+            {% if emergency.victim==current_user.username %}
+            <div ><a  class="btn btn-outline-danger" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Options</a>
+              <div id="drop" class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <a class="btn btn-outline-primary" href="">Update Emergency</a>
+                <a class="btn btn-outline-danger" href="">Delete Emergency</a>
+              </div>
+            <a class="btn btn-outline-success" href="{{url_for('main.convo',id=emergency.id)}}">Conversations</a>
+            </div>            
+            {% else %}
+            <a class="btn btn-outline-success" href="{{url_for('main.convo',id=emergency.id)}}">Conversations</a>
+            {% endif %}
+          
+          </div>
+        </div>  
+        <br>
       {% endfor %}
     </div>
   </div>
