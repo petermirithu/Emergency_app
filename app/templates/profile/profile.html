@@ -5,6 +5,23 @@
 <section>
     <div class="container">
         <div class="row">
+            <div class="col-md-2"></div>
+            <!-- To display the profile picture -->
+            <div class="col-md-4">            
+                    {% if user.profile_pic_path %}
+                    <img class="card" src="{{url_for('static',filename=user.profile_pic_path)}}" alt="Profile Pic" class="img-thumbnail" width="250px" height="250px">
+                    {% else %}
+                    <p>No profile picture</p>
+                    {% endif %}
+                    {% if user == current_user %}
+                    <form action=" {{ url_for('main.update_pic',yusername = user.username) }} " method="POST"
+                        enctype="multipart/form-data">
+                        <input type="file" name="photo" class="form-control" required>
+                        <input type="submit">
+                    </form>
+                    
+                    {% endif %}
+                </div>
             <!-- To display the username -->
             <div class="col-md-4">
                 <h2> {{user.username | capitalize}} </h2>
@@ -15,23 +32,42 @@
                 {% else %}
                 <p> {{user.username | capitalize}} has no bio </p>
                 {% endif %}
+                <a href=" {{url_for('main.update_profile',yusername = user.username)}} ">Update Bio</a>
+            </div>          
+            <div class="col-md-2"></div>
+            
+        </div>
+        <div class="row">
+                <h1 style="align-content: center;">MY EMERGENCIES</h1>
+            <div class="col-md-2"></div>
+            <div class="col-md-8">
+                <div class="card-group">
+                    {% if emergencies %}
+                    {% for my_emergency in emergencies%}
+
+                    <div class="card-body">
+                        <div class="card-body">
+                            <div class="card-title">
+                                {{my_emergency.categpry}}
+                            </div>
+                            <div class="card-text">
+                               
+                               Occured in: {{my_emergency.location}}
+                               {{my_emergency.description}}
+
+                            </div>
+                            <div class="card-footer">
+                                Occured on:{{my_emergency.posted}}
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                    {% else %}
+                    {{user.username}} has not posted any emergencies
+                    {% endif %}
+                </div>
             </div>
-            <!-- To display the profile picture -->
-            <div class="col-md-4">            
-                {% if user.profile_pic_path %}
-                <img class="card" src="{{url_for('static',filename=user.profile_pic_path)}}" alt="Profile Pic" class="img-thumbnail" width="250px" height="250px">
-                {% else %}
-                <p>No profile picture</p>
-                {% endif %}
-                {% if user == current_user %}
-                <form action=" {{ url_for('main.update_pic',yusername = user.username) }} " method="POST"
-                    enctype="multipart/form-data">
-                    <input type="file" name="photo" class="form-control" required>
-                    <input type="submit">
-                </form>
-                <a href=" {{url_for('main.update_profile',yusername = user.username)}} ">Edit Profile</a>
-                {% endif %}
-            </div>
+            <div class="col-md-2"></div>
         </div>
     </div>
 </section>
