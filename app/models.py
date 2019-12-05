@@ -7,16 +7,6 @@ from datetime import datetime
 @login_manager.user_loader
 def load_user(user_id):
         return User.query.get(int(user_id))
-class Source:
-    '''
-    Source class to define source objects
-    '''
-    def __init__(self,id,name,description,url):
-        self.id = id
-        self.name = name
-        self.description = description
-        self.url = url
-
 
 class User(UserMixin,db.Model):
     __tablename__ = 'users'
@@ -66,6 +56,13 @@ class Emergency(db.Model):
     def get_emergencies(cls,category):
         emergencies = Emergency.query.filter_by(category=category).all()
         return emergencies
+
+    def delete_emergency(self):
+        '''
+        function that deletes an emergency from the database
+        '''
+        db.session.delete(self)
+        db.session.commit()    
 
     def __repr__(self):
         return f'Emergency {self.category}'    
@@ -139,7 +136,14 @@ class Solution(db.Model):
     def save_solution(self):
         db.session.add(self)
         db.session.commit()
-    
+
+    @classmethod
+    def get_solution_by_category(cls,category):
+        '''
+        function that displays all solutions by categories
+        '''
+        solutions=Solution.query.filter_by(category=category).all()
+        return solutions        
     
 class Subscribers(db.Model):
     '''
