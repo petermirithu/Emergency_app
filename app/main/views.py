@@ -54,8 +54,8 @@ def emergency(category):
 @main.route('/user/<yusername>')
 @login_required
 def profile(yusername):
-  user = User.query.filter_by(username = yusername).first()
-  emergencies = Emergency.get_emergency_by_user(user.victim)
+  user=User.query.filter_by(username = yusername).first()
+  emergencies = Emergency.get_emergency_by_user(current_user.username)
 
   if user is None:
     abort(404)
