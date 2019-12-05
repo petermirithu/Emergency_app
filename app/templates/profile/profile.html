@@ -16,8 +16,8 @@
                     {% if user == current_user %}
                     <form action=" {{ url_for('main.update_pic',yusername = user.username) }} " method="POST"
                         enctype="multipart/form-data">
-                        <input type="file" name="photo" class="form-control" required>
-                        <input type="submit">
+                        <input class="btn btn-outline-success"type="file" name="photo" class="form-control" required>
+                        <input class="btn btn-outline-primary" type="submit">
                     </form>
                     
                     {% endif %}
@@ -32,41 +32,57 @@
                 {% else %}
                 <p> {{user.username | capitalize}} has no bio </p>
                 {% endif %}
-                <a href=" {{url_for('main.update_profile',yusername = user.username)}} ">Update Bio</a>
+                <a class="btn btn-outline-info" href=" {{url_for('main.update_profile',yusername = user.username)}} ">Update Bio</a>
             </div>          
             <div class="col-md-2"></div>
             
         </div>
         <div class="row">
-                <h1 style="align-content: center;">MY EMERGENCIES</h1>
+            <h1 class="text-center">MY EMERGENCIES</h1>
             <div class="col-md-2"></div>
-            <div class="col-md-8">
-                <div class="card-group">
-                    {% if emergencies %}
-                    {% for my_emergency in emergencies%}
+            <div class="col-md-8">                
+                {% if emergencies %}
+                    {% for emergency in emergencies %}
+                        <div class="col-md-6">
+                            <div style="margin-top:10px" class="card bg-dark">
+                                
+                                <div style="color:lightblue" class="card-header">{{emergency.category}}</div>
+                                <div style="color:lightblue" class="card-body">{{emergency.description}}</div>
+                                <div class="card-footer">
+                                <small class="text-muted">{{emergency.victim}}</small><br>
+                                <small class="text-muted">{{emergency.posted.strftime('%Y-%m-%d')}}</small><br>
+                                <small class="text-muted">{{emergency.location}}</small><br>
+                                </div>
 
-                    <div class="card-body">
-                        <div class="card-body">
-                            <div class="card-title">
-                                {{my_emergency.categpry}}
-                            </div>
-                            <div class="card-text">
-                               
-                               Occured in: {{my_emergency.location}}
-                               {{my_emergency.description}}
 
+                                {% if emergency.victim==current_user.username %}
+                                    <div><a class="btn btn-outline-success" href="{{url_for('main.convo',id=emergency.id)}}">Conversations</a></div>
+                                    <div><a  class="btn btn-outline-danger" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Options</a>
+                                    <div id="drop" class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                        <a class="btn btn-outline-primary" href="">Update Emergency</a>
+                                        <a class="btn btn-outline-danger" href="">Delete Emergency</a>
+                                    </div>
+                                    </div>  
+                                    <div><a  class="btn btn-outline-info" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">View Map</a>  
+                                    <div id="drop" class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                        <div style="margin-left:20px;width:500px;height:500px" class="text-center">
+                                        {% block map %}
+                                            {% include 'map.html' %}
+                                        {% endblock map %}
+                                        </div>              
+                                    </div>    
+                                    </div>            
+                                {% else %}
+                                    <a class="btn btn-outline-success" href="{{url_for('main.convo',id=emergency.id)}}">Conversations</a>
+                                {% endif %}
                             </div>
-                            <div class="card-footer">
-                                Occured on:{{my_emergency.posted}}
-                            </div>
-                        </div>
-                    </div>
-                    {% endfor %}
-                    {% else %}
+                        </div>          
+                        <br>
+                        {% endfor %}
+                {% else %}
                     {{user.username}} has not posted any emergencies
-                    {% endif %}
-                </div>
-            </div>
+                {% endif %}
+            </div>            
             <div class="col-md-2"></div>
         </div>
     </div>
