@@ -3,17 +3,93 @@
 {% import 'bootstrap/wtf.html' as wtf%}
 
 {% block content%}
+<div class="bd-example" id="slidy">
+    <div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel" id="slide">
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <img src="https://t4.ftcdn.net/jpg/01/29/27/79/240_F_129277968_ebx6W45pOdbdy3kFxZtfpJcoIeiTwpkR.jpg"
+                    class="d-block w-100" alt="..." id="slide-img">
+                <div class="carousel-caption d-none d-md-block">
+                    <h5 class="wow slideInLeft" data-wow-duration="2s">First slide label</h5>
+                    <p class="wow slideInRight" data-wow-duration="2s">Nulla vitae elit libero, a pharetra augue mollis
+                        interdum.</p>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <img src="https://t4.ftcdn.net/jpg/01/29/27/79/240_F_129277968_ebx6W45pOdbdy3kFxZtfpJcoIeiTwpkR.jpg"
+                    class="d-block w-100" alt="..." id="slide-img">
+                <div class="carousel-caption d-none d-md-block">
+                    <h5 class="wow lightSpeedIn" data-wow-duration="2s">Second slide label</h5>
+                    <p class="wow fadeIn" data-wow-delay="2s">Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                    </p>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <img src="https://t4.ftcdn.net/jpg/01/29/27/79/240_F_129277968_ebx6W45pOdbdy3kFxZtfpJcoIeiTwpkR.jpg"
+                    class="d-block w-100" alt="..." id="slide-img">
+                <div class="carousel-caption d-none d-md-block">
+                    <h5 class="wow slideInRight" data-wow-duration="2s">Third slide label</h5>
+                    <p class="wow slideInLeft" data-wow-duration="2s">Praesent commodo cursus magna, vel scelerisque
+                        nisl consectetur.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 <section>
     <div class="container-fluid">
-        <h1 class="text-capitalize text-center">WELCOME TO E_MAY</h1>
+        <h3 class="text-capitalize text-center" style="padding-bottom: 40px;">Welcome to E_MAY</h3>
         <div class="row">
             <div class="col-md-4"></div>
             <div class="col-md-4">
-                <div class="card">
-                    {{wtf.quick_form(form)}}
+                <div class="card" style="width: 32rem;">
+                    <div class="card-body">
+                        {{wtf.quick_form(form)}}
+                    </div>
                 </div>
             </div>
             <div class="col-md-4"></div>
+        </div>
+    </div>
+</section>
+<!-- Footer -->
+<section id="footer">
+    <div class="container">
+        <div class="row text-center text-xs-center text-sm-left text-md-left">
+            <div class="col-xs-12 col-sm-4 col-md-4">
+                <img src="https://webstockreview.net/images/sunny-clipart-clip-art-2.jpg" id="footer-img" alt="">
+                <h3>E_May</h3>
+            </div>
+            <div class="col-xs-12 col-sm-4 col-md-4">
+                <h4 style="padding-top: 18px;">Mission</h4>
+                <p>Make known what's unknown</p>
+            </div>
+            <div class="col-xs-12 col-sm-4 col-md-4" id="p">
+                <h5 class="card-title">Subscribe to our Blog</h5>
+                {{wtf.quick_form(subscriber_form)}}
+            </div>
+        </div>
+
+        <div class="row" style="padding-top: 20px !important;">
+            <div class="col-xs-12 col-sm-12 col-md-12 mt-2 mt-sm-2 text-center text-white">
+                <div style="float: left !important;">
+                    <p>copyright &copy; 2019</p>
+                </div>
+                <div style="float: right !important;">
+                    <ul class="list-unstyled list-inline social text-center">
+                        <li class="list-inline-item"><a href="javascript:void();"><i class="fa fa-facebook"></i></a>
+                        </li>
+                        <li class="list-inline-item"><a href="javascript:void();"><i class="fa fa-twitter"></i></a></li>
+                        <li class="list-inline-item"><a href="javascript:void();"><i class="fa fa-instagram"></i></a>
+                        </li>
+                        <li class="list-inline-item"><a href="javascript:void();"><i class="fa fa-google-plus"></i></a>
+                        </li>
+                        <li class="list-inline-item"><a href="javascript:void();" target="_blank"><i
+                                    class="fa fa-envelope"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+
         </div>
     </div>
 </section>
