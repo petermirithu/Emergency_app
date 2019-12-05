@@ -1,26 +1,23 @@
 {% extends 'base.html' %}
+
 {% block content %}
-<body>
-  <div class="card">
-    <h1 class="text-center">Emergencies</hi>
-      <div class="container">
-        <div class="card">
-          <div class="col-9">
-            {% for article in article %}
-            <div class="col-md-4">
-              <img class="card" src="{{article.image}}" alt="Card image cap" width="300px" height="200px" margin-right="500px">
-              <div class="card-body">
-                <h5 class="card-title"><strong>{{article.author}}</strong></h5>
-                <p class="card-text">{{article.description}}</p>
-                <a href="{{article.url}}">
-                <p class="card-text">Read More</p>
-                </a>
-              </div>
+<section>
+  <h1 class="text-center">Emergencies</hi>
+  
+    <div class="row">
+      <div class="card-columns">              
+        {% for article in articles %}
+          <div class="card">
+            <img class="card" src="{{article.image}}" alt="Card image cap" width="300px" height="200px" margin-right="500px">
+            <h5 class="card-title"><strong>{{article.author}}</strong></h5>
+            <div class="card-body">
+              <p>{{article.description}}</p>
+              <a href="{{article.url}}">Read More</a>
             </div>
-            {% endfor %}
           </div>
-        </div>
+        {% endfor %}
+      </div>          
     </div>
-    {% endblock %}
-  </div>
-</body>
+  
+</section>  
+{% endblock %}

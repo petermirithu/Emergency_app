@@ -10,13 +10,11 @@ cat_url= None
 
 def configure_request(app):
     global api_key, source_url, cat_url
-    api_key ='d375c375d9414540b4b87ffc36728e98'
-    source_url= app.config['NEWS_API_SOURCE_URL']
+    api_key = app.config['NEWS_API_KEY']    
     cat_url=app.config['CAT_API_URL']
 
-def article_source(id):
-    article_source_url = 'https://newsapi.org/v2/everything?q=kenya{}&apiKey={}'.format(id,api_key)
-    print(article_source_url)
+def article_source():
+    article_source_url=cat_url.format(api_key)    
     with urllib.request.urlopen(article_source_url) as url:
         article_source_data = url.read()
         article_source_response = json.loads(article_source_data)
