@@ -36,6 +36,32 @@
           
           </div>
         </div>  
+        <div class="container">
+          <div>
+              <div style="height: 250px; width:200px " id="mapid"></div>
+              <script>
+                  const  mymap = L.map('mapid').setView([-1.2841, 36.8155], 13);
+                  var marker = L.marker([-1.2841, 36.8155]).addTo(mymap);
+          
+                 
+          
+                  // openstreet attri 
+          
+                  const attribution = 
+                      '&copy; <a href="https://www.openstreetmap.org/copyright">Openstreetmap</a> contributors';
+                  
+                  const tileUrl = "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                  const tiles = L.tileLayer(tileUrl, { attribution });
+                  tiles.addTo(mymap)
+          
+                   // popup feature
+                  marker.bindPopup("<b>Emergency location!</b><br>lets save lives").openPopup();
+                  circle.bindPopup("I am a circle.");
+                  polygon.bindPopup("I am a polygon.");
+          
+              </script>
+          </div>
+        </div>
         <br>
       {% endfor %}
     </div>
