@@ -31,7 +31,7 @@
         line-height: 65px;
         text-align: center;
         background-color: transparent;
-        z-index: 9999;
+        z-index: 9999 !important;
 
     }
 
@@ -403,11 +403,23 @@
         margin: 0;
         padding-bottom: 0;
         padding-left: 20px !important;
+        z-index: 9999 !important;
 
     }
 
     #a:hover {
         color: black !important;
+    }
+    #slide {
+    height: 50vh !important;
+    }
+
+    #slide-img {
+        height: 50vh !important;
+    }
+
+    #slidy {
+        opacity: 1 !important;
     }
 </style>
 
@@ -423,11 +435,30 @@
                 <ul class="navlinks">
                     <!-- authentication -->
                     {% if current_user.is_authenticated %}
-                    <li><a href="{{url_for('main.article')}}" class="nav-item nav-link">News</a></li>
+                    <!-- emergency drop down -->
+                    <div class="dropdown">
+                        <a class="bb" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
+                            aria-expanded="false">
+                            <p>Emergency Type</p>
+                        </a>
+
+                        <div id="drop" class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <a id="a" class="dropdown-item" href="/emergency/Accidents">Accident</a>
+                            <a id="a" class="dropdown-item" href="/emergency/Floods">Floods</a>
+                            <a id="a" class="dropdown-item" href="/emergency/Earthquakes">Earthquakes</a>
+                            <a id="a" class="dropdown-item" href="/emergency/Flu">Flu</a>
+                            <a id="a" class="dropdown-item" href="/emergency/Fire">Fire</a>
+                            <a id="a" class="dropdown-item" href="/emergency/Landslide">Landslide</a>
+                            <a id="a" class="dropdown-item" href="/emergency/PowerOutage">Power Outage</a>
+                            <a id="a" class="dropdown-item" href="/emergency/Terrorism">Terroism</a>
+                            <a id="a" class="dropdown-item" href="/emergency/Wildfire">Wildfire</a>
+                        </div>
+                    </div>
+                    <li><a href="{{url_for('main.article')}}" style="padding-left: 15px;">News</a></li>
                     <li><a href="{{url_for('main.solution')}}">Solutions</a></li>
                     <li><a href="{{url_for('main.chatbox',category='none')}}">Services</a></li>
 
-                    <div class="btn btn-outline-light"><a class="bb" id="dropdownMenuButton" data-toggle="dropdown"
+                    <div><a class="bb" id="dropdownMenuButton" data-toggle="dropdown"
                             aria-haspopup="true" aria-expanded="false">{{current_user.username}}</a>
                         <div id="drop" class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                             <a href="{{url_for('main.profile',yusername=current_user.username)}}" class="dropdown-item"
@@ -436,25 +467,7 @@
                                 Out</a>
                         </div>
                     </div>
-                    <!-- emergency drop down -->
-                    <div class="dropdown">
-                        <a class="bb" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
-                            aria-expanded="false">
-                            Emergency Type
-                        </a>
-
-                        <div id="drop" class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            <li><a class="dropdown-item" href="/emergency/Accidents">Accident</a></li>
-                            <li><a class="dropdown-item" href="/emergency/Floods">Floods</a></li>
-                            <li><a class="dropdown-item" href="/emergency/Earthquakes">Earthquakes</a></li>
-                            <li><a class="dropdown-item" href="/emergency/Flu">Flu</a></li>
-                            <li><a class="dropdown-item" href="/emergency/Fire">Fire</a></li>
-                            <li><a class="dropdown-item" href="/emergency/Landslide">Landslide</a></li>
-                            <li><a class="dropdown-item" href="/emergency/PowerOutage">Power Outage</a></li>
-                            <li><a class="dropdown-item" href="/emergency/Terrorism">Terroism</a></li>
-                            <li><a class="dropdown-item" href="/emergency/Wildfire">Wildfire</a></li>
-                        </div>
-                    </div>
+                    
                     {% else %}
                     <ul class="navlinks">
                         <li>
@@ -474,6 +487,39 @@
             </span>
         </div>
     </nav>
+    <div class="bd-example" id="slidy">
+    <div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel" id="slide">
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <img src="https://t4.ftcdn.net/jpg/01/29/27/79/240_F_129277968_ebx6W45pOdbdy3kFxZtfpJcoIeiTwpkR.jpg"
+                    class="d-block w-100" alt="..." id="slide-img">
+                <div class="carousel-caption d-none d-md-block">
+                    <h5 class="wow slideInLeft" data-wow-duration="2s">First slide label</h5>
+                    <p class="wow slideInRight" data-wow-duration="2s">Nulla vitae elit libero, a pharetra augue mollis
+                        interdum.</p>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <img src="https://t4.ftcdn.net/jpg/01/29/27/79/240_F_129277968_ebx6W45pOdbdy3kFxZtfpJcoIeiTwpkR.jpg"
+                    class="d-block w-100" alt="..." id="slide-img">
+                <div class="carousel-caption d-none d-md-block">
+                    <h5 class="wow lightSpeedIn" data-wow-duration="2s">Second slide label</h5>
+                    <p class="wow fadeIn" data-wow-delay="2s">Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                    </p>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <img src="https://t4.ftcdn.net/jpg/01/29/27/79/240_F_129277968_ebx6W45pOdbdy3kFxZtfpJcoIeiTwpkR.jpg"
+                    class="d-block w-100" alt="..." id="slide-img">
+                <div class="carousel-caption d-none d-md-block">
+                    <h5 class="wow slideInRight" data-wow-duration="2s">Third slide label</h5>
+                    <p class="wow slideInLeft" data-wow-duration="2s">Praesent commodo cursus magna, vel scelerisque
+                        nisl consectetur.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 
     <!-- Jquery needed -->

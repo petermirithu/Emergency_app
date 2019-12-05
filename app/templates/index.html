@@ -3,54 +3,24 @@
 {% import 'bootstrap/wtf.html' as wtf%}
 
 {% block content%}
-<div class="bd-example" id="slidy">
-    <div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel" id="slide">
-        <div class="carousel-inner">
-            <div class="carousel-item active">
-                <img src="https://t4.ftcdn.net/jpg/01/29/27/79/240_F_129277968_ebx6W45pOdbdy3kFxZtfpJcoIeiTwpkR.jpg"
-                    class="d-block w-100" alt="..." id="slide-img">
-                <div class="carousel-caption d-none d-md-block">
-                    <h5 class="wow slideInLeft" data-wow-duration="2s">First slide label</h5>
-                    <p class="wow slideInRight" data-wow-duration="2s">Nulla vitae elit libero, a pharetra augue mollis
-                        interdum.</p>
-                </div>
-            </div>
-            <div class="carousel-item">
-                <img src="https://t4.ftcdn.net/jpg/01/29/27/79/240_F_129277968_ebx6W45pOdbdy3kFxZtfpJcoIeiTwpkR.jpg"
-                    class="d-block w-100" alt="..." id="slide-img">
-                <div class="carousel-caption d-none d-md-block">
-                    <h5 class="wow lightSpeedIn" data-wow-duration="2s">Second slide label</h5>
-                    <p class="wow fadeIn" data-wow-delay="2s">Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                    </p>
-                </div>
-            </div>
-            <div class="carousel-item">
-                <img src="https://t4.ftcdn.net/jpg/01/29/27/79/240_F_129277968_ebx6W45pOdbdy3kFxZtfpJcoIeiTwpkR.jpg"
-                    class="d-block w-100" alt="..." id="slide-img">
-                <div class="carousel-caption d-none d-md-block">
-                    <h5 class="wow slideInRight" data-wow-duration="2s">Third slide label</h5>
-                    <p class="wow slideInLeft" data-wow-duration="2s">Praesent commodo cursus magna, vel scelerisque
-                        nisl consectetur.</p>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+
 <section>
     <div class="container-fluid">
         <h3 class="text-capitalize text-center" style="padding-bottom: 40px;">Welcome to E_MAY</h3>
         <div class="row">
-            <div class="col-md-5"></div>
-            <div class="col-md-5">
+            <div class="col-md-4"></div>
+            <div class="col-md-4">
             {% if current_user.is_authenticated %}    
-                <div class="card">
-                    {{wtf.quick_form(form)}}
+                <div class="card" style="width: 22rem;">
+                    <div class="card-body">
+                        {{wtf.quick_form(form)}}
+                    </div>
                 </div>
             {% else %}    
                 <a class="btn btn-outline-success">Please Sign In/Sign Up</a>
             {% endif %}
             </div>
-            <div class="col-md-2"></div>
+            <div class="col-md-4"></div>
         </div>
     </div>
 </section>
