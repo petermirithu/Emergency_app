@@ -9,11 +9,11 @@
       <div class="card-columns">              
         {% for article in articles %}
           <div class="card">
-            <img class="card" src="{{article.image}}" alt="Card image cap" width="100px" height="200px" margin-right="500px">
+            <img class="card" src="{{article.image}}" alt="Card image cap">
             <h5 class="card-title"><strong>{{article.author}}</strong></h5>
             <div class="card-body">
               <p>{{article.description}}</p>
-              <a href="{{article.url}}">Read More</a>
+              <a href="{{article.url}}">Read More <span style="font-size: 15px !important;">>></span></a>
             </div>
           </div>
         {% endfor %}
