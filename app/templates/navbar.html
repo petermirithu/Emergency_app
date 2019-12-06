@@ -16,6 +16,8 @@
     {% block styles %}
     <link rel="stylesheet" href="{{url_for('static',filename='navbar.css')}}">
     {% endblock %}
+
+
 </head>
 
 <body>
@@ -81,50 +83,38 @@
             </span>
         </div>
     </nav>
-    <div class="bd-example" id="slidy">
-        <div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel" id="slide">
+    <div class="bd-example">
+        <div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel">
             <div class="carousel-inner">
                 <div class="carousel-item active">
                     <img src="https://t4.ftcdn.net/jpg/01/29/27/79/240_F_129277968_ebx6W45pOdbdy3kFxZtfpJcoIeiTwpkR.jpg"
                         class="d-block w-100" alt="..." id="slide-img">
-                    <div class="carousel-caption d-none d-md-block">
-                        <h5 class="wow slideInLeft" data-wow-duration="2s">First slide label</h5>
-                        <p class="wow slideInRight" data-wow-duration="2s">Nulla vitae elit libero, a pharetra augue
-                            mollis
-                            interdum.</p>
+                    <div class="carousel-caption d-none d-md-block" id="slidy">
+                        <h5 class="wow slideInLeft" data-wow-duration="2.3s">Keep safety first so you last.</h5>
+                        <p class="wow slideInRight" data-wow-duration="2.3s">Don’t get hurt, stay alert!</p>
                     </div>
                 </div>
                 <div class="carousel-item">
                     <img src="https://t4.ftcdn.net/jpg/01/29/27/79/240_F_129277968_ebx6W45pOdbdy3kFxZtfpJcoIeiTwpkR.jpg"
                         class="d-block w-100" alt="..." id="slide-img">
-                    <div class="carousel-caption d-none d-md-block">
-                        <h5 class="wow lightSpeedIn" data-wow-duration="2s">Second slide label</h5>
-                        <p class="wow fadeIn" data-wow-delay="2s">Lorem ipsum dolor sit amet, consectetur adipiscing
-                            elit.
-                        </p>
+                    <div class="carousel-caption d-none d-md-block" id="slidy">
+                        <h5 class="wow fadeInUp" data-wow-duration="2.3s">An ounce of prevention is worth a pound of
+                            cure</h5>
+                        <p class="wow fadeInDown" data-wow-duration="2.3s">When It Takes a Miracle, We’re There.</p>
                     </div>
                 </div>
                 <div class="carousel-item">
                     <img src="https://t4.ftcdn.net/jpg/01/29/27/79/240_F_129277968_ebx6W45pOdbdy3kFxZtfpJcoIeiTwpkR.jpg"
                         class="d-block w-100" alt="..." id="slide-img">
-                    <div class="carousel-caption d-none d-md-block">
-                        <h5 class="wow slideInRight" data-wow-duration="2s">Third slide label</h5>
-                        <p class="wow slideInLeft" data-wow-duration="2s">Praesent commodo cursus magna, vel scelerisque
-                            nisl consectetur.</p>
+                    <div class="carousel-caption d-none d-md-block" id="slidy">
+                        <h5 class="wow slideInRight" data-wow-duration="2.3s">Bringing Care, Hope, and Excellence.</h5>
+                        <p class="wow slideInLeft" data-wow-duration="2.3s">Care without any delay</p>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-
-    <!-- Jquery needed -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-    <script src="js/scripts.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/wow/1.1.2/wow.min.js"></script>
-
-
-    <!-- Function used to shrink nav bar removing paddings and adding black background -->
     <script>
         new WOW().init();
         $(window).scroll(function () {
@@ -146,7 +136,10 @@
         });
     </script>
 
-
+    <!-- Jquery needed -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="js/scripts.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/wow/1.1.2/wow.min.js"></script>
 
 
 
