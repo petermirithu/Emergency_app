@@ -398,9 +398,13 @@ body {
 
 #slide {
     height: 50vh !important;
+    padding-bottom: 10em !important;
 }
 
 #slide-img {
     height: 50vh !important;
 }
 
+#slidy {
+    padding-bottom: 5em !important;
+}

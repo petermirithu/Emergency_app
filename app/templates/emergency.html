@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-
+{% import 'bootstrap/wtf.html' as wtf %}
 {% block styles %}
 {{super()}}
 <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='css/emergency.css')}}">
@@ -8,38 +8,84 @@
 {% block content %}
 <section>
   <div class="container-fluid">
-  <h1>{{title}}</h1>
+    <h1>{{title}}</h1>
     <div class="row">
       {% for emergency in emergencies %}
-        <div class="col-md-6">
-          <div style="margin-top:10px" class="card bg-dark">
-            
-            <div style="color:lightblue" class="card-header">{{emergency.category}}</div>
-            <div style="color:lightblue" class="card-body">{{emergency.description}}</div>
-            <div class="card-footer">
-              <small class="text-muted">{{emergency.victim}}</small><br>
-              <small class="text-muted">{{emergency.posted.strftime('%Y-%m-%d')}}</small><br>
-              <small class="text-muted">{{emergency.location}}</small><br>
+      <div class="col-md-6">
+        <div class="card" style="width: 28rem;">
+          <div class="card-body">
+            <div style="margin-top:10px">
+
+              <div class="card-header">{{emergency.category}}</div>
+              <div class="card-body">{{emergency.description}}</div>
+              <div>
+                <small>{{emergency.victim}}</small><br>
+                <small>{{emergency.posted.strftime('%Y-%m-%d')}}</small><br>
+                <small>{{emergency.location}}</small><br>
+              </div>
+              <div class="row no-gutters" style="margin-inline: 5px !important;">
+              {% if emergency.victim==current_user.username %}
+                <div><a class="btn btn-outline-success" href="{{url_for('main.convo',id=emergency.id)}}">Conversations</a></div>
+                <a class="btn btn-outline-info" href="{{url_for('main.map')}}">View Map</a>                                                                                  
+                <div><a class="btn btn-outline-danger" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Options</a>
+                  <div id="drop" class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <a class="btn btn-outline-primary" href="{{url_for('main.update_emergency',id=emergency.id)}}">Update Emergency</a>
+                    <a class="btn btn-outline-danger" href="{{url_for('main.delEmergency',id=emergency.id)}}">Delete Emergency</a>
+                  </div>
+                </div>  
+              {% else %}
+                <a class="btn btn-outline-success" href="{{url_for('main.convo',id=emergency.id)}}">Conversations</a>
+                <a class="btn btn-outline-info" href="{{url_for('main.map')}}">View Map</a>         
+              {% endif %}
+              </div>
             </div>
-
-
-            {% if emergency.victim==current_user.username %}
-              <div><a class="btn btn-outline-success" href="{{url_for('main.convo',id=emergency.id)}}">Conversations</a></div>
-              <a class="btn btn-outline-info" href="{{url_for('main.map')}}">View Map</a>                                                                                  
-              <div><a class="btn btn-outline-danger" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Options</a>
-                <div id="drop" class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                  <a class="btn btn-outline-primary" href="{{url_for('main.update_emergency',id=emergency.id)}}">Update Emergency</a>
-                  <a class="btn btn-outline-danger" href="{{url_for('main.delEmergency',id=emergency.id)}}">Delete Emergency</a>
-                </div>
-              </div>  
-            {% else %}
-              <a class="btn btn-outline-success" href="{{url_for('main.convo',id=emergency.id)}}">Conversations</a>
-              <a class="btn btn-outline-info" href="{{url_for('main.map')}}">View Map</a>         
-            {% endif %}
           </div>
-        </div>          
-        <br>
+        </div>
+      </div>
+      <br>
       {% endfor %}
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<section id="footer">
+  <div class="container">
+    <div class="row text-center text-xs-center text-sm-left text-md-left">
+      <div class="col-xs-12 col-sm-4 col-md-4">
+        <img src="https://webstockreview.net/images/sunny-clipart-clip-art-2.jpg" id="footer-img" alt="">
+        <h3>E_May</h3>
+      </div>
+      <div class="col-xs-12 col-sm-4 col-md-4">
+        <h4 style="padding-top: 18px;">Mission</h4>
+        <p>Make known what's unknown</p>
+      </div>
+      <div class="col-xs-12 col-sm-4 col-md-4" id="p">
+        <h5 class="card-title">Subscribe to our Blog</h5>
+        {{wtf.quick_form(subscriber_form)}}
+      </div>
+    </div>
+
+    <div class="row" style="padding-top: 20px !important;">
+      <div class="col-xs-12 col-sm-12 col-md-12 mt-2 mt-sm-2 text-center text-white">
+        <div style="float: left !important;">
+          <p>copyright &copy; 2019</p>
+        </div>
+        <div style="float: right !important;">
+          <ul class="list-unstyled list-inline social text-center">
+            <li class="list-inline-item"><a href="javascript:void();"><i class="fa fa-facebook"></i></a>
+            </li>
+            <li class="list-inline-item"><a href="javascript:void();"><i class="fa fa-twitter"></i></a></li>
+            <li class="list-inline-item"><a href="javascript:void();"><i class="fa fa-instagram"></i></a>
+            </li>
+            <li class="list-inline-item"><a href="javascript:void();"><i class="fa fa-google-plus"></i></a>
+            </li>
+            <li class="list-inline-item"><a href="javascript:void();" target="_blank"><i class="fa fa-envelope"></i></a>
+            </li>
+          </ul>
+        </div>
+      </div>
+
     </div>
   </div>
 </section>

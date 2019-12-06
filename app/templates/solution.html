@@ -1,12 +1,14 @@
 {% extends 'base.html'%}
+{% import 'bootstrap/wtf.html' as wtf %}
 {% block content%}
 <section>
     <div class="container">
         <h1 class="text-center">Solutions</h1>
 
 
-        <div class="col-md-3 col-sm-3 col-xs-6 wow pulse" data-wow-duration="4s"  data-wow-iteration="infinite" style="padding-bottom: 10px !important;">
-            <a href="{{url_for('main.new_solution')}}" class="btn btn-sm animated-button sandy-two">Post a Solution</a> 
+        <div class="col-md-3 col-sm-3 col-xs-6 wow pulse" data-wow-duration="4s" data-wow-iteration="infinite"
+            style="padding-bottom: 10px !important;">
+            <a href="{{url_for('main.new_solution')}}" class="btn btn-sm animated-button sandy-two">Post a Solution</a>
         </div>
 
         <div style="padding-bottom: 1em;">
@@ -157,6 +159,48 @@
             </div>
         </div>
 
+    </div>
+</section>
+
+<!-- Footer -->
+<section id="footer">
+    <div class="container">
+        <div class="row text-center text-xs-center text-sm-left text-md-left">
+            <div class="col-xs-12 col-sm-4 col-md-4">
+                <img src="https://webstockreview.net/images/sunny-clipart-clip-art-2.jpg" id="footer-img" alt="">
+                <h3>E_May</h3>
+            </div>
+            <div class="col-xs-12 col-sm-4 col-md-4">
+                <h4 style="padding-top: 18px;">Mission</h4>
+                <p>Make known what's unknown</p>
+            </div>
+            <div class="col-xs-12 col-sm-4 col-md-4" id="p">
+                <h5 class="card-title">Subscribe to our Blog</h5>
+                {{wtf.quick_form(subscriber_form)}}
+            </div>
+        </div>
+
+        <div class="row" style="padding-top: 20px !important;">
+            <div class="col-xs-12 col-sm-12 col-md-12 mt-2 mt-sm-2 text-center text-white">
+                <div style="float: left !important;">
+                    <p>copyright &copy; 2019</p>
+                </div>
+                <div style="float: right !important;">
+                    <ul class="list-unstyled list-inline social text-center">
+                        <li class="list-inline-item"><a href="javascript:void();"><i class="fa fa-facebook"></i></a>
+                        </li>
+                        <li class="list-inline-item"><a href="javascript:void();"><i class="fa fa-twitter"></i></a></li>
+                        <li class="list-inline-item"><a href="javascript:void();"><i class="fa fa-instagram"></i></a>
+                        </li>
+                        <li class="list-inline-item"><a href="javascript:void();"><i class="fa fa-google-plus"></i></a>
+                        </li>
+                        <li class="list-inline-item"><a href="javascript:void();" target="_blank"><i
+                                    class="fa fa-envelope"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
     </div>
 </section>
 {% endblock %}
