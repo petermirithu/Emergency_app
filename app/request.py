@@ -1,5 +1,5 @@
 import urllib.request,json
-from .models import Article
+from .models import Article,Location
 
 # Getting api key
 api_key = None
@@ -46,4 +46,33 @@ def process_articles_results(news):
 
     return article_source_results
 
-    
+def location():
+        # api_key="aef2987237152b5a1f74a260bdc84c91"
+        # send_url ='http://api.ipstack.com/172.30.39.151?access_key={}'
+
+        # loc=send_url.format(api_key)    
+        loc='http://api.ipstack.com/105.27.206.46?access_key=aef2987237152b5a1f74a260bdc84c91'
+        with urllib.request.urlopen(loc) as url:
+                data1= url.read()
+                response = json.loads(data1)        
+
+                results=process_location(response)          
+                
+        return results
+
+def process_location(item):
+  '''
+  function that processes the response from json format
+  '''
+  results=[]
+  
+  latitude=item.get('latitude')
+  longitude=item.get('longitude')
+
+  loc_object=Location(latitude,longitude)
+  results.append(loc_object)
+
+  return results  
+
+
+

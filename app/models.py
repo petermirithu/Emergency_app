@@ -65,11 +65,12 @@ class Emergency(db.Model):
         db.session.delete(self)
         db.session.commit()    
 
-    def get_emergency_by_user(cls,User):
+    @classmethod
+    def get_emergency_by_user(cls,user):
         '''
         Function to get emergency by user who posted
         '''
-        user_emergencies = Emergency.query.filter_by(victim = victim).all()
+        user_emergencies = Emergency.query.filter_by(victim =user).all()
         return user_emergencies
 
     def __repr__(self):
@@ -180,6 +181,11 @@ class Article:
         self.title = title
 
 
+class Location:
+
+    def __init__(self,latitude,longitude):
+        self.latitude = latitude
+        self.longitude = longitude
 
 
 

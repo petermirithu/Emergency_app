@@ -1,125 +1,205 @@
 {% extends 'base.html'%}
+{% import 'bootstrap/wtf.html' as wtf %}
 {% block content%}
-   <section>
-   <h1 class="text-center">Solutions</h1>
-   <a class="btn-block btn-info" href="{{url_for('main.new_solution')}}">Post a Solution</a>
-     <h2>Accidents</h2>
-    {% if accidents %}
-        <div class="card">
-            <div class="row">
-                {% for accident in accidents %}
-                    <div class="col-md-6">
-                        <div class="card">
-                            <div class="card-header">
-                                <h3>{{accident.title}}</h3>
-                            </div>
-                            <div class="card-body">
-                                <p>{{accident.body}} </p><br>
-                                <p><i>{{accident.posted_by}}</i></p>  
-                                <p><i>{{accident.posted_on.strftime('%Y-%m-%d')}}</i></p>
-                            </div>
-                        </div>
-                    </div>
-                {% endfor%}
-            </div>
-        </div>
-    {% else %}
-        <p>no accident emergency solutions</p>
-    {% endif %}
-    
-    <h2>Floods</h2>
-    {% if floods %}
-        <div class="card">
-            <div class="row">
-                {% for flood in floods %}
-                    <div class="col-md-6">
-                        <div class="card">
-                            <div class="card-header">
-                                <h3>{{flood.title}}</h3>
-                            </div>
-                            <div class="card-body">
-                                <p>{{flood.body}} </p><br>
-                                <p><i>{{flood.posted_on}}</i></p>  
-                            </div>
-                        </div>
-                    </div>
-                {% endfor%}
-            </div>
-        </div>
-    {% else %}
-        <p>no flood emergency solutions</p>
-    {% endif %}
+<section>
+    <div class="container">
+        <h1 class="text-center">Solutions</h1>
 
-    <h2>Earthquakes</h2>
-    {% if earthquakes%}
-        <div class="card">
-            <div class="row">
-                {% for earthquake in earthquakes %}
-                    <div class="col-md-6">
-                        <div class="card">
-                            <div class="card-header">
-                                <h3>{{earthquake.title}}</h3>
+
+        <div class="col-md-3 col-sm-3 col-xs-6 wow pulse" data-wow-duration="4s" data-wow-iteration="infinite"
+            style="padding-bottom: 10px !important;">
+            <a href="{{url_for('main.new_solution')}}" class="btn btn-sm animated-button sandy-two">Post a Solution</a>
+        </div>
+
+        <div style="padding-bottom: 1em;">
+            <div class="card">
+                <div class="card-body">
+                    <h2>Accidents</h2>
+                    {% if accidents %}
+                    <div class="card">
+                        <div class="row">
+                            {% for accident in accidents %}
+                            <div class="col-md-6">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h3>{{accident.title}}</h3>
+                                    </div>
+                                    <div class="card-body">
+                                        <p>{{accident.body}} </p><br>
+                                        <p><i>{{accident.posted_by}}</i></p>
+                                        <p><i>{{accident.posted_on.strftime('%Y-%m-%d')}}</i></p>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="card-body">
-                                <p>{{earthquake.body}} </p><br>
-                                <p><i>{{earthquake.posted_on}}</i></p>  
-                            </div>
+                            {% endfor%}
                         </div>
                     </div>
-                {% endfor%}
+                    {% else %}
+                    <p>no accident emergency solutions</p>
+                    {% endif %}
+                </div>
             </div>
         </div>
-    {% else %}
-        <p>no earthquake emergency solutions</p>
-    {% endif %}
 
-    <h2>Flu outbreaks</h2>
-    {% if flus %}
-        <div class="card">
-            <div class="row">
-                {% for flu in flus %}
-                    <div class="col-md-6">
-                        <div class="card">
-                            <div class="card-header">
-                                <h3>{{flu.title}}</h3>
+        <div style="padding-bottom: 1em;">
+            <div class="card">
+                <div class="card-body">
+                    <h2>Floods</h2>
+                    {% if floods %}
+                    <div class="card">
+                        <div class="row">
+                            {% for flood in floods %}
+                            <div class="col-md-6">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h3>{{flood.title}}</h3>
+                                    </div>
+                                    <div class="card-body">
+                                        <p>{{flood.body}} </p><br>
+                                        <p><i>{{flood.posted_on}}</i></p>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="card-body">
-                                <p>{{flu.body}} </p><br>
-                                <p><i>{{flu.posted_on}}</i></p>  
-                            </div>
+                            {% endfor%}
                         </div>
                     </div>
-                {% endfor%}
+                    {% else %}
+                    <p>no flood emergency solutions</p>
+                    {% endif %}
+                </div>
             </div>
         </div>
-    {% else %}
-        <p>no flu emergency solutions</p>
-    {% endif %}
 
-    <h2>landslides</h2>
-    {% if landslides %}
-        <div class="card">
-            <div class="row">
-                {% for landslide in landslides %}
-                    <div class="col-md-6">
-                        <div class="card">
-                            <div class="card-header">
-                                <h3>{{landslide.title}}</h3>
+
+        <div style="padding-bottom: 1em;">
+            <div class="card">
+                <div class="card-body">
+                    <h2>Earthquakes</h2>
+                    {% if earthquakes%}
+                    <div class="card">
+                        <div class="row">
+                            {% for earthquake in earthquakes %}
+                            <div class="col-md-6">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h3>{{earthquake.title}}</h3>
+                                    </div>
+                                    <div class="card-body">
+                                        <p>{{earthquake.body}} </p><br>
+                                        <p><i>{{earthquake.posted_on}}</i></p>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="card-body">
-                                <p>{{landslide.body}} </p><br>
-                                <p><i>{{landslide.posted_on}}</i></p>  
-                            </div>
+                            {% endfor%}
                         </div>
                     </div>
-                {% endfor%}
+                    {% else %}
+                    <p>no earthquake emergency solutions</p>
+                    {% endif %}
+                </div>
             </div>
         </div>
-    {% else %}
-        <p>no landslide emergency solutions</p>
-    {% endif %}
 
-   </section>
+        <div style="padding-bottom: 1em;">
+            <div class="card">
+                <div class="card-body">
+                    <h2>Flu outbreaks</h2>
+                    {% if flus %}
+                    <div class="card">
+                        <div class="row">
+                            {% for flu in flus %}
+                            <div class="col-md-6">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h3>{{flu.title}}</h3>
+                                    </div>
+                                    <div class="card-body">
+                                        <p>{{flu.body}} </p><br>
+                                        <p><i>{{flu.posted_on}}</i></p>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endfor%}
+                        </div>
+                    </div>
+                    {% else %}
+                    <p>no flu emergency solutions</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+
+        <div style="padding-bottom: 1em;">
+            <div class="card">
+                <div class="card-body">
+                    <h2>landslides</h2>
+                    {% if landslides %}
+                    <div class="card">
+                        <div class="row">
+                            {% for landslide in landslides %}
+                            <div class="col-md-6">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h3>{{landslide.title}}</h3>
+                                    </div>
+                                    <div class="card-body">
+                                        <p>{{landslide.body}} </p><br>
+                                        <p><i>{{landslide.posted_on}}</i></p>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endfor%}
+                        </div>
+                    </div>
+                    {% else %}
+                    <p>no landslide emergency solutions</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<!-- Footer -->
+<section id="footer">
+    <div class="container">
+        <div class="row text-center text-xs-center text-sm-left text-md-left">
+            <div class="col-xs-12 col-sm-4 col-md-4">
+                <img src="../static/logo/emay.png" id="footer-img" alt="" width="" height="">                                        
+            </div>
+            <div class="col-xs-12 col-sm-4 col-md-4">
+                <h4 style="padding-top: 18px;">Mission</h4>
+                <p>Make known what's unknown</p>
+            </div>
+            <div class="col-xs-12 col-sm-4 col-md-4" id="p">
+                <h5 class="card-title">Subscribe to our Blog</h5>
+                {{wtf.quick_form(subscriber_form)}}
+            </div>
+        </div>
+
+        <div class="row" style="padding-top: 20px !important;">
+            <div class="col-xs-12 col-sm-12 col-md-12 mt-2 mt-sm-2 text-center text-white">
+                <div style="float: left !important;">
+                    <p>copyright &copy; 2019</p>
+                </div>
+                <div style="float: right !important;">
+                    <ul class="list-unstyled list-inline social text-center">
+                        <li class="list-inline-item"><a href="javascript:void();"><i class="fa fa-facebook"></i></a>
+                        </li>
+                        <li class="list-inline-item"><a href="javascript:void();"><i class="fa fa-twitter"></i></a></li>
+                        <li class="list-inline-item"><a href="javascript:void();"><i class="fa fa-instagram"></i></a>
+                        </li>
+                        <li class="list-inline-item"><a href="javascript:void();"><i class="fa fa-google-plus"></i></a>
+                        </li>
+                        <li class="list-inline-item"><a href="javascript:void();" target="_blank"><i
+                                    class="fa fa-envelope"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
 {% endblock %}
-
-    

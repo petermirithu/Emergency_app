@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 
+{% import 'bootstrap/wtf.html' as wtf %}
 
 {% block content %}
 <section>
@@ -16,8 +17,8 @@
                     {% if user == current_user %}
                     <form action=" {{ url_for('main.update_pic',yusername = user.username) }} " method="POST"
                         enctype="multipart/form-data">
-                        <input type="file" name="photo" class="form-control" required>
-                        <input type="submit">
+                        <input class="btn btn-outline-success"type="file" name="photo" class="form-control" required>
+                        <input class="btn btn-outline-primary" type="submit">
                     </form>
                     
                     {% endif %}
@@ -32,42 +33,98 @@
                 {% else %}
                 <p> {{user.username | capitalize}} has no bio </p>
                 {% endif %}
-                <a href=" {{url_for('main.update_profile',yusername = user.username)}} ">Update Bio</a>
+                <a class="btn btn-outline-info" href=" {{url_for('main.update_profile',yusername = user.username)}} ">Update Bio</a>
             </div>          
             <div class="col-md-2"></div>
             
         </div>
-        <div class="row">
-                <h1 style="align-content: center;">MY EMERGENCIES</h1>
+        <div class="row" style="padding-top: 5em;">
+            <h1 class="text-center">My Emergency</h1>
             <div class="col-md-2"></div>
-            <div class="col-md-8">
-                <div class="card-group">
-                    {% if emergencies %}
-                    {% for my_emergency in emergencies%}
+            <div class="col-md-8">                
+                {% if emergencies %}
+                    {% for emergency in emergencies %}
+                        <div class="col-md-6">
+                            <div style="margin-top:10px" class="card bg-dark">
+                                
+                                <div style="color:lightblue" class="card-header">{{emergency.category}}</div>
+                                <div style="color:lightblue" class="card-body">{{emergency.description}}</div>
+                                <div class="card-footer">
+                                <small class="text-muted">{{emergency.victim}}</small><br>
+                                <small class="text-muted">{{emergency.posted.strftime('%Y-%m-%d')}}</small><br>
+                                <small class="text-muted">{{emergency.location}}</small><br>
+                                </div>
 
-                    <div class="card-body">
-                        <div class="card-body">
-                            <div class="card-title">
-                                {{my_emergency.categpry}}
-                            </div>
-                            <div class="card-text">
-                               
-                               Occured in: {{my_emergency.location}}
-                               {{my_emergency.description}}
 
+                                {% if emergency.victim==current_user.username %}
+                                    <div><a class="btn btn-outline-success" href="{{url_for('main.convo',id=emergency.id)}}">Conversations</a></div>
+                                    <div><a  class="btn btn-outline-danger" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Options</a>
+                                    <div id="drop" class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                        <a class="btn btn-outline-primary" href="">Update Emergency</a>
+                                        <a class="btn btn-outline-danger" href="">Delete Emergency</a>
+                                    </div>
+                                    </div>  
+                                    <div><a  class="btn btn-outline-info" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">View Map</a>  
+                                    <div id="drop" class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                        <div style="margin-left:20px;width:500px;height:500px" class="text-center">
+                                        {% block map %}
+                                            {% include 'map.html' %}
+                                        {% endblock map %}
+                                        </div>              
+                                    </div>    
+                                    </div>            
+                                {% else %}
+                                    <a class="btn btn-outline-success" href="{{url_for('main.convo',id=emergency.id)}}">Conversations</a>
+                                {% endif %}
                             </div>
-                            <div class="card-footer">
-                                Occured on:{{my_emergency.posted}}
-                            </div>
-                        </div>
-                    </div>
-                    {% endfor %}
-                    {% else %}
+                        </div>          
+                        <br>
+                        {% endfor %}
+                {% else %}
                     {{user.username}} has not posted any emergencies
-                    {% endif %}
+                {% endif %}
+            </div>            
+            <div class="col-md-2"></div>
+        </div>
+    </div>
+</section>
+
+<section id="footer">
+    <div class="container">
+        <div class="row text-center text-xs-center text-sm-left text-md-left">
+            <div class="col-xs-12 col-sm-4 col-md-4">
+                <img src="../static/logo/emay.png" id="footer-img" alt="" width="" height="">                                        
+            </div>
+            <div class="col-xs-12 col-sm-4 col-md-4">
+                <h4 style="padding-top: 18px;">Mission</h4>
+                <p>Make known what's unknown</p>
+            </div>
+            <div class="col-xs-12 col-sm-4 col-md-4" id="p">
+                <h5 class="card-title">Subscribe to our Blog</h5>
+                {{wtf.quick_form(subscriber_form)}}
+            </div>
+        </div>
+
+        <div class="row" style="padding-top: 20px !important;">
+            <div class="col-xs-12 col-sm-12 col-md-12 mt-2 mt-sm-2 text-center text-white">
+                <div style="float: left !important;">
+                    <p>copyright &copy; 2019</p>
+                </div>
+                <div style="float: right !important;">
+                    <ul class="list-unstyled list-inline social text-center">
+                        <li class="list-inline-item"><a href="javascript:void();"><i class="fa fa-facebook"></i></a>
+                        </li>
+                        <li class="list-inline-item"><a href="javascript:void();"><i class="fa fa-twitter"></i></a></li>
+                        <li class="list-inline-item"><a href="javascript:void();"><i class="fa fa-instagram"></i></a>
+                        </li>
+                        <li class="list-inline-item"><a href="javascript:void();"><i class="fa fa-google-plus"></i></a>
+                        </li>
+                        <li class="list-inline-item"><a href="javascript:void();" target="_blank"><i
+                                    class="fa fa-envelope"></i></a></li>
+                    </ul>
                 </div>
             </div>
-            <div class="col-md-2"></div>
+
         </div>
     </div>
 </section>

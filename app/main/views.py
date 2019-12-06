@@ -1,19 +1,41 @@
 from ..models import Emergency,User,Subscribers
-from .forms import EmergencyForm,SubscriberForm
 from ..models import Emergency,User,Conversation,Reply,Solution
-from .forms import EmergencyForm,ConvoForm,UpdateProfile,chatboxForm,SolutionsForm,Update_emergency
+from .forms import ConvoForm,UpdateProfile,chatboxForm,SolutionsForm,Update_emergency,SubscriberForm,EmergencyForm
 from .. import db,photos
 from . import main
 from flask import render_template,redirect,url_for,abort,request,flash
 from flask_login import login_required,current_user
 from ..email import mail_message
-from ..request import article_source
+from ..request import article_source,location
+import urllib.request,json
 
 @main.route('/', methods = ['GET','POST'])
 def index():
   title="Home"
- 
-  return render_template('index.html',title=title)
+  Form=SubscriberForm()
+  formE=EmergencyForm()
+
+  locations=location()
+  for x in locations:
+    lat=x.latitude
+    lon=x.longitude
+    latitude=lat
+    longitude=lon
+
+  if formE.validate_on_submit():
+    category=formE.category.data
+    description=formE.description.data
+
+    new_post=Emergency(category=category,description=description,latitude=latitude,longitude=longitude,victim=current_user.username)
+    new_post.save_emergency()
+
+    subscriber = Subscribers.query.all()
+    for my_subscriber in subscriber:
+      mail_message("New emergecy posted","email/new_emergency",my_subscriber.email,emergency = emergency)
+      
+    return redirect(url_for('main.chatbox',category=new_post.category))
+
+  return render_template('index.html',title=title,subscriber_form=Form,formE=formE,locations=locations)
 
 @main.route('/emergency/<category>')
 def emergency(category):
@@ -21,23 +43,23 @@ def emergency(category):
   view function that renders emergency template with the specific category displaying emergencies by category
   '''
   title=category
-
+  Form=SubscriberForm()
   emergencies=Emergency.get_emergencies(category)
+        
   
-  
-  return render_template('emergency.html',title=title,emergencies=emergencies)
+  return render_template('emergency.html',subscriber_form=Form,title=title,emergencies=emergencies)
 
 
 # Updating profile
 @main.route('/user/<yusername>')
 @login_required
 def profile(yusername):
-  user = User.query.filter_by(username = yusername).first()
-  emergencies = Emergency.get_emergency_by_user(user.username)
-
+  user=User.query.filter_by(username = yusername).first()
+  emergencies = Emergency.get_emergency_by_user(current_user.username)
+  Form=SubscriberForm() 
   if user is None:
     abort(404)
-  return render_template('profile/profile.html',user = user,emergencies = emergencies)
+  return render_template('profile/profile.html',subscriber_form=Form,user = user,emergencies = emergencies)
 
 
 @main.route('/emergency/conversation/<int:id>', methods=['GET','POST'])
@@ -48,6 +70,7 @@ def convo(id):
   '''  
   emergency=Emergency.query.filter_by(id=id).first()
   form = ConvoForm()
+  Form=SubscriberForm()
   title='Conversations'
   convos=Conversation.get_convos(id)  
 
@@ -58,7 +81,7 @@ def convo(id):
 
     return redirect(url_for('main.convo',id=id))
 
-  return render_template('conversation.html',ConvoForm=form,title=title,convos=convos,emergency=emergency)  
+  return render_template('conversation.html',subscriber_form=Form,ConvoForm=form,title=title,convos=convos,emergency=emergency)  
 
 @main.route('/emergency/conversation/reply/<int:id>', methods=['GET','POST'])
 @login_required
@@ -70,6 +93,7 @@ def reply(id):
   form = ConvoForm()
   title='Reply'
   replies=Reply.get_replies(id)
+  Form=SubscriberForm()
   convo=Conversation.query.filter_by(id=id).first()
 
   if form.validate_on_submit():
@@ -79,7 +103,7 @@ def reply(id):
 
     return redirect(url_for('main.reply',id=id))
 
-  return render_template('reply.html',ConvoForm=form,title=title,replies=replies,convo=convo)  
+  return render_template('reply.html',subscriber_form=Form,ConvoForm=form,title=title,replies=replies,convo=convo)  
 
 
 @main.route('/emergency/new/solution', methods = ['GET','POST'])
@@ -91,6 +115,7 @@ def new_solution():
 
   form = SolutionsForm()
   title ='new solution'
+  Form=SubscriberForm()
 
   if form.validate_on_submit():
     new_solution = Solution(body =form.solution.data ,title =form.title.data ,posted_by =current_user.username,category = form.category.data )
@@ -99,13 +124,14 @@ def new_solution():
 
     return redirect(url_for('main.solution'))
 
-  return render_template('solution_form.html',form = form,title=title)
+  return render_template('solution_form.html',subscriber_form=Form,form = form,title=title)
 
 @main.route('/emergency/solution', methods = ['GET','POST'])
 def solution():
   '''
   this view function is responsible for displaying our the solution on solution.html
   '''
+  Form=SubscriberForm()
   accidentSol = Solution.get_solution_by_category('Accidents')
   floodSol = Solution.get_solution_by_category('Floods')
   earthquakeSol = Solution.get_solution_by_category('Earthquakes')
@@ -116,8 +142,13 @@ def solution():
   terrorismSol = Solution.get_solution_by_category('Terrorism')
   wildfireSol = Solution.get_solution_by_category('Wildfire')
 
-  return render_template('solution.html',accidents = accidentSol, floods = floodSol,earthquakes = earthquakeSol,flus = fluSol, landslides = landslideSol,fire = fireSol,power = powerSol,terrorism = terrorismSol,wildfire = wildfireSol)
+  return render_template('solution.html',subscriber_form=Form,accidents = accidentSol, floods = floodSol,earthquakes = earthquakeSol,flus = fluSol, landslides = landslideSol,fire = fireSol,power = powerSol,terrorism = terrorismSol,wildfire = wildfireSol)
 
+@main.route("/map")
+def map():
+  Form=SubscriberForm()
+
+  return render_template('map.html',subscriber_form=Form)
   
 
 
@@ -127,7 +158,7 @@ def chatbox(category):
   '''
   view function that renders chatbox html for chatting
   '''
-  form=chatboxForm()  
+
   if category=='Accidents':
     flash('Thank for Posting the emergency. Please call our \'First Aid & Rescue Team\': \' 0722233333 \' to assist you immediately')    
 
@@ -155,26 +186,45 @@ def chatbox(category):
   elif category=='Wildfire':
     flash('Thank for Posting the emergency. Please call our \'Fire Extinguisher Team & Animal rescue Team\' : \' 0700011111 \' to assist you immediately')      
   else:
-    flash("Chat With us......")  
+    flash("Welcome to Help centre......")  
               
+  form=chatboxForm()  
+  Form=SubscriberForm()
   if form.validate_on_submit():
-    while True:
-      if form.chatbox.data=='Accidents':
-        emergencies=Emergency.get_emergencies('Accidents')
-        
-        return render_template('emergency.html',emergencies=emergencies)
+    
+    if form.chatbox.data=='Accidents':
+      emergencies=Emergency.get_emergencies('Accidents')
+      
+      return render_template('emergency.html',subscriber_form=Form,emergencies=emergencies)
 
-      elif form.chatbox.data=='Floods':
-        emergencies=Emergency.get_emergencies('Floods')
+    elif form.chatbox.data=='Floods':
+      emergencies=Emergency.get_emergencies('Floods')
 
-        return render_template('emergency.html',emergencies=emergencies)      
+      return render_template('emergency.html',subscriber_form=Form,emergencies=emergencies) 
 
-      else:
-        break
-        
+    elif form.chatbox.data=='Help':
+      accidentSol = Solution.get_solution_by_category('Accidents')
+      floodSol = Solution.get_solution_by_category('Floods')
+      earthquakeSol = Solution.get_solution_by_category('Earthquakes')
+      fluSol = Solution.get_solution_by_category('Flu')
+      landslideSol = Solution.get_solution_by_category('Landslide')
+      fireSol = Solution.get_solution_by_category('Fire')
+      powerSol = Solution.get_solution_by_category('PowerOutage')
+      terrorismSol = Solution.get_solution_by_category('Terrorism')
+      wildfireSol = Solution.get_solution_by_category('Wildfire')
 
+      return render_template('solution.html',subscriber_form=Form,accidents = accidentSol, floods = floodSol,earthquakes = earthquakeSol,flus = fluSol, landslides = landslideSol,fire = fireSol,power = powerSol,terrorism = terrorismSol,wildfire = wildfireSol)
 
-  return render_template('chatbox.html', form=form)
+    elif form.chatbox.data=='Home':
+      return redirect(url_for('main.index'))
+
+    elif form.chatbox.data=='News':  
+      return redirect(url_for('main.article'))
+    else:
+      flash('Did Not get that Message')
+
+  
+  return render_template('chatbox.html', form=form,subscriber_form=Form)
 
 @main.route('/user/<yusername>/update',methods = ['GET','POST'])
 @login_required
@@ -185,6 +235,7 @@ def update_profile(yusername):
   Args:
   yusername:The current user's username
   '''
+  Form=SubscriberForm()
   user = User.query.filter_by(username = yusername).first()
   if user is None:
     abort(404)
@@ -196,9 +247,9 @@ def update_profile(yusername):
     db.session.add(user)
     db.session.commit()
 
-    return redirect(url_for('.profile',yusername = user.username))
+    return redirect(url_for('.profile',subscriber_form=Form,yusername = user.username))
 
-  return render_template('profile/update.html',form = form)
+  return render_template('profile/update.html',subscriber_form=Form,form = form)
 
 @main.route('/user/<yusername>/update/pic',methods = ['POST'])
 @login_required
@@ -206,6 +257,7 @@ def update_pic(yusername):
   '''
   View function that will help a user upload a photo
   '''
+  Form=SubscriberForm()
   user = User.query.filter_by(username = yusername).first()
   if 'photo' in request.files:
     filename = photos.save(request.files['photo'])
@@ -213,7 +265,7 @@ def update_pic(yusername):
     user.profile_pic_path = path
     db.session.commit()
     
-  return redirect(url_for('main.profile',yusername = yusername))
+  return redirect(url_for('main.profile',subscriber_form=Form,yusername = yusername))
   
 
 @main.route('/article')
@@ -222,13 +274,15 @@ def article():
   view article page function that returns article details page and its data
   '''
   articles = article_source()
-  return render_template('news.html',articles=articles)
+  Form=SubscriberForm()
+  return render_template('news.html',subscriber_form=Form,articles=articles)
 
 @main.route('/emergency/update_emergency/<int:id>' , methods=['GET','POST'])
 def update_emergency(id):
   '''
   view function that renders update emergency form
   '''
+  Form=SubscriberForm()
   u_emergency=Emergency.query.filter_by(id=id).first()
   title='Update Emergency'
   if emergency is None:
@@ -237,15 +291,14 @@ def update_emergency(id):
   form=Update_emergency()
   if form.validate_on_submit():
     u_emergency.category=form.category.data
-    u_emergency.description=form.description.data
-    u_emergency.location=form.location.data
+    u_emergency.description=form.description.data    
 
     db.session.add(u_emergency)
     db.session.commit()
 
-    return redirect(url_for('main.emergency',category=form.category.data))
+    return redirect(url_for('main.emergency',subscriber_form=Form,category=form.category.data))
 
-  return render_template('update_emergency',title=title,form=form)  
+  return render_template('updateemergency.html',subscriber_form=Form,title=title,form=form)  
 
 @main.route('/delEmergency/<int:id>')
 @login_required
@@ -253,26 +306,16 @@ def delEmergency(id):
   '''
   view function that deletes an emergency if only the emergency belongs to the current user
   '''
+  Form=SubscriberForm()
   
   emergency_del=Emergency.query.filter_by(id=id).first()
 
   emergency_del.delete_emergency()
 
-  return redirect(url_for('main.emergency',category=emergency_del.category))
+  return redirect(url_for('main.emergency',subscriber_form=Form,category=emergency_del.category))
 
-@main.route('/emergency/post')
-@login_required
-def post():
 
-  category=request.form['category']
-  description=request.form['description']
-  latitude=request.form['latitude']
-  longitude=request.form['longitude']
 
-  new_post=Emergency(category=category,description=description,latitude=latitude,longitude)
-  new_post.save_emergency()
+    
 
-  subscriber = Subscribers.query.all()
-  for my_subscriber in subscriber:
-    mail_message("New emergecy posted","email/new_emergency",my_subscriber.email,emergency = emergency)
-    return redirect(url_for('main.chatbox',category=new_emergency.category))
+

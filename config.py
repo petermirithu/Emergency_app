@@ -18,8 +18,8 @@ class Config:
     NEWS_API_KEY=os.environ.get('NEWS_API_KEY')
     CAT_API_URL='https://newsapi.org/v2/everything?q=kenya&apiKey={}'
         
-class ProdConfig(Config):
-    pass
+class ProdConfig(Config):    
+    SQLALCHEMY_DATABASE_URI=os.environ.get('DATABASE_URL')
 
 class DevConfig(Config):
     DEBUG = True
