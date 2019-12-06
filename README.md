@@ -1,6 +1,13 @@
-# E_may
+# [E_may](https://github.com/petermirithu/Emergency_app/)
 
-## Built By [E_may](https://github.com/petermirithu/Emergency_app/)
+This project was generated with [Python](https://www.python.org/) version 3.8.0 <br>
+
+## Author: 
+* Peter Mirithu
+* Dennis Otieno
+* Mercy Nzau
+* Daniel Nyagah
+* Amos Mwangi
 
 ## Description
 An application that allows users to use that one minute wisely. The users will be able to post an Emergency post and the viewers get the chance of commenting and also having the priviledge of starting a conversation(chatting) about a particular Emergency post.
@@ -59,7 +66,19 @@ Viewer would like to:
         $ python3.6 manage.py test
 
 ## Technologies Used
-* Python3.6
-* Flask
+  This project was generated with
+  * [Python](https://www.python.org/) version 3.8.0. 
+  * [Flask](https://www.fullstackpython.com/flask.html).
+  * Flask Bootstrap.
+  * Flask-script.
+  * PSQL database.
+  * SQLAlembic.
 
-## [License](LICENSE.txt)
+## Support and contact details
+ Incase of a problem, issue or need more clarification, feel free to send an email<br> @ E_may254@gmail.com <br>
+ Contact Pyra at : 0790476167
+
+
+### License
+* This project is licensed by [MIT License](LICENSE.txt)<br>
+  Copyright (c) [E~may](https://github.com/petermirithu/Emergency_app/) 2019<br>
