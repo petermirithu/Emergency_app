@@ -24,6 +24,7 @@ body {
     width: auto;
     height: auto;
     padding-left: 3rem;
+    font-family: 'Special Elite', cursive;
 }
 
 .nav div.logo a {
@@ -403,6 +404,3 @@ body {
     height: 50vh !important;
 }
 
-#slidy {
-    opacity: 2 !important;
-}
