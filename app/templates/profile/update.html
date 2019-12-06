@@ -4,7 +4,17 @@
 {% block content %}
 <section>
     <div class="container">
-        {{wtf.quick_form(form)}}
+        <div class="row">
+            <div class="col-md-4"></div>
+            <div class="col-md-4">
+                <div class="card" style="width: 27rem;">
+                    <div class="card-body">
+                        {{wtf.quick_form(form)}}
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4"></div>
+        </div>
     </div>
 </section>
 {% endblock %}

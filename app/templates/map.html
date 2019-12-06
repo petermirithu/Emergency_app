@@ -1,34 +1,95 @@
+{% extends 'base.html' %}
+
+{% import 'bootstrap/wtf.html' as wtf %}
+
+{% block content %}
+
+
+
+
 <!DOCTYPE html>
+
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css" integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ==" crossorigin=""/>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
+        integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
+        crossorigin="" />
     <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"></script>
-​​​
+    ​​​
 </head>
 <style>
-    #mapid{
+    #mapid {
         height: 400px;
     }
 </style>
+
 <body>
     <div id="mapid"></div>
     Map
     <script>
-        const  mymap = L.map('mapid').setView([-1.283329963684082, 36.81666946411133], 13);
+        const mymap = L.map('mapid').setView([-1.283329963684082, 36.81666946411133], 13);
         var marker = L.marker([-1.283329963684082, 36.81666946411133]).addTo(mymap);
-        const attribution = 
+        const attribution =
             '&copy; <a href="https://www.openstreetmap.org/copyright">Openstreetmap</a> contributors';
-        
+
         const tileUrl = "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-        const tiles = L.tileLayer(tileUrl, { attribution });
+        const tiles = L.tileLayer(tileUrl, {
+            attribution
+        });
         tiles.addTo(mymap)
         marker.bindPopup("<b>Emergency location!</b><br>lets save lives").openPopup();
         circle.bindPopup("I am a circle.");
         polygon.bindPopup("I am a polygon.");
     </script>
+    <!-- Footer -->
+    <section id="footer">
+        <div class="container">
+            <div class="row text-center text-xs-center text-sm-left text-md-left">
+                <div class="col-xs-12 col-sm-4 col-md-4">
+                    <img src="../static/logo/emay.png" id="footer-img" alt="" width="" height="">                                        
+                </div>
+                <div class="col-xs-12 col-sm-4 col-md-4">
+                    <h4 style="padding-top: 18px;">Mission</h4>
+                    <p>Make known what's unknown</p>
+                </div>
+                <div class="col-xs-12 col-sm-4 col-md-4" id="p">
+                    <h5 class="card-title">Subscribe to our Blog</h5>
+                    {{wtf.quick_form(subscriber_form)}}
+                </div>
+            </div>
+
+            <div class="row" style="padding-top: 20px !important;">
+                <div class="col-xs-12 col-sm-12 col-md-12 mt-2 mt-sm-2 text-center text-white">
+                    <div style="float: left !important;">
+                        <p>copyright &copy; 2019</p>
+                    </div>
+                    <div style="float: right !important;">
+                        <ul class="list-unstyled list-inline social text-center">
+                            <li class="list-inline-item"><a href="javascript:void();"><i class="fa fa-facebook"></i></a>
+                            </li>
+                            <li class="list-inline-item"><a href="javascript:void();"><i class="fa fa-twitter"></i></a>
+                            </li>
+                            <li class="list-inline-item"><a href="javascript:void();"><i
+                                        class="fa fa-instagram"></i></a>
+                            </li>
+                            <li class="list-inline-item"><a href="javascript:void();"><i
+                                        class="fa fa-google-plus"></i></a>
+                            </li>
+                            <li class="list-inline-item"><a href="javascript:void();" target="_blank"><i
+                                        class="fa fa-envelope"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
 </body>
+
 </html>
+{% endblock content %}

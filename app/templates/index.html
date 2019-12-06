@@ -1,6 +1,6 @@
 {% extends 'base.html'%}
 
-{% import 'bootstrap/wtf.html' as wtf%}
+{% import 'bootstrap/wtf.html' as wtf %}
 
 {% block content%}
 
@@ -11,32 +11,18 @@
             <div class="col-md-4"></div>
             <div class="col-md-4">
             {% if current_user.is_authenticated %}    
-                <div class="card">
-                    <div class="card">
-
-                        ************************************
-                            {% for x in locations %}
-                            <p>Latitude : {{x.latitude}}</p>
-                            <p>Longitude: {{x.longitude}}</p>
-                            {% endfor %} 
-                        
-                        
-                    
-                        <!--Card content-->
-                    
-                        <div class="card-body px-lg-5">
-                    
-                            <!-- Form -->
-                    
+                <div class="card"  id="raw">
+                    <div class="card">                                                                                    
+                        <!--Card content-->                    
+                        <div class="card-body px-lg-5">                    
+                            <!-- Form -->                    
                             {{wtf.quick_form(formE)}}
-                            <!-- Form -->
-                    
-                        </div>
-                    
+                            <!-- Form -->                    
+                        </div>                    
                     </div>
                 </div>
             {% else %}    
-                <a class="btn btn-outline-success">Please Sign In/Sign Up</a>
+                <a href="{{ url_for('auth.login') }}" class="btn btn-outline-success text-center">Please Sign In/Sign Up</a>
             {% endif %}
             </div>
             <div class="col-md-4"></div>
@@ -47,9 +33,8 @@
 <section id="footer">
     <div class="container">
         <div class="row text-center text-xs-center text-sm-left text-md-left">
-            <div class="col-xs-12 col-sm-4 col-md-4">
-                <img src="https://webstockreview.net/images/sunny-clipart-clip-art-2.jpg" id="footer-img" alt="">
-                <h3>E_May</h3>
+            <div class="col-xs-12 col-sm-4 col-md-4">            
+                <img src="../static/logo/emay.png" id="footer-img" alt="" width="" height="">                                        
             </div>
             <div class="col-xs-12 col-sm-4 col-md-4">
                 <h4 style="padding-top: 18px;">Mission</h4>
