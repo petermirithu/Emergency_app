@@ -1,6 +1,6 @@
 # E_may
 
-## Built By [E_may](https://github.com/petermirithu/Emergency_app)
+## Built By [E_may](https://github.com/petermirithu/Emergency_app/)
 
 ## Description
 An application that allows users to use that one minute wisely. The users will be able to post an Emergency post and the viewers get the chance of commenting and also having the priviledge of starting a conversation(chatting) about a particular Emergency post.
@@ -62,4 +62,4 @@ Viewer would like to:
 * Python3.6
 * Flask
 
-## [License](license.txt)
+## [License](LICENSE.txt)
