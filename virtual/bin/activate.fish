@@ -29,7 +29,7 @@ end
 # unset irrelevant variables
 deactivate nondestructive
 
-set -gx VIRTUAL_ENV "/home/ermoh/Desktop/spare-projo/spare2/Emergency_app/virtual"
+set -gx VIRTUAL_ENV "/home/ermoh/Desktop/spare-projo/spare3/..spare2/Emergency_app/virtual"
 
 set -gx _OLD_VIRTUAL_PATH $PATH
 set -gx PATH "$VIRTUAL_ENV/bin" $PATH
