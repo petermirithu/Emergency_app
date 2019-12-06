@@ -6,8 +6,8 @@
 }
 
 body {
-    background: #eee;
-    font-size: 10px !important;
+    background: rgb(236, 234, 234) !important;
+    font-size: 16px !important;
     color: #000;
     margin: 0;
     padding: 0;
@@ -17,6 +17,10 @@ body {
 section {
     padding-top: 7em !important;
     padding-bottom: 2em !important;
+}
+
+#slide-text{
+    padding-bottom: 5em;
 }
 
 
@@ -137,7 +141,91 @@ section .section-title {
     }
 }
 
-section{
+section {
     padding-top: 11em !important;
 }
 
+/* button for animated solution */
+
+
+/* Global Button Styles */
+a.animated-button:link,
+a.animated-button:visited {
+    position: relative;
+    display: block;
+    margin: 30px auto 0;
+    padding: 14px 15px;
+    color: #000;
+    font-size: 14px;
+    font-weight: bold;
+    text-align: center;
+    text-decoration: none;
+    text-transform: uppercase;
+    overflow: hidden;
+    letter-spacing: .08em;
+    border-radius: 0;
+    text-shadow: 0 0 1px rgba(0, 0, 0, 0.2), 0 1px 0 rgba(0, 0, 0, 0.2);
+    -webkit-transition: all 1s ease;
+    -moz-transition: all 1s ease;
+    -o-transition: all 1s ease;
+    transition: all 1s ease;
+}
+
+a.animated-button:link:after,
+a.animated-button:visited:after {
+    content: "";
+    position: absolute;
+    height: 0%;
+    left: 50%;
+    top: 50%;
+    width: 150%;
+    z-index: -1;
+    -webkit-transition: all 0.75s ease 0s;
+    -moz-transition: all 0.75s ease 0s;
+    -o-transition: all 0.75s ease 0s;
+    transition: all 0.75s ease 0s;
+}
+
+a.animated-button:link:hover,
+a.animated-button:visited:hover {
+    color: #000;
+    text-shadow: none;
+}
+
+
+a.animated-button.sandy-two {
+    border: 2px solid #000;
+    color: #000;
+}
+
+a.animated-button.sandy-two:after {
+    border: 3px solid #000;
+    opacity: 0;
+    -moz-transform: translateY(-50%) translateX(-50%) rotate(90deg);
+    -ms-transform: translateY(-50%) translateX(-50%) rotate(90deg);
+    -webkit-transform: translateY(-50%) translateX(-50%) rotate(90deg);
+    transform: translateY(-50%) translateX(-50%) rotate(90deg);
+}
+
+a.animated-button.sandy-two:hover:after {
+    height: 600% !important;
+    opacity: 1;
+    color: #000;
+}
+
+
+
+/* // */
+
+#raw {
+    transition: box-shadow .3s;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    background: #fff;
+    float: left;
+
+}
+
+#raw:hover {
+    box-shadow: 0 0 11px rgba(33, 33, 33, .2);
+}
