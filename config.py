@@ -23,11 +23,11 @@ class ProdConfig(Config):
 
 class DevConfig(Config):
     DEBUG = True
-    SQLALCHEMY_DATABASE_URI='postgresql+psycopg2://pyra:lotus@localhost/e_may'
+    SQLALCHEMY_DATABASE_URI='postgresql+psycopg2://ermoh:12345@localhost/e_may'
 
 class TestConfig(Config):
     DEBUG =True 
-    SQLALCHEMY_DATABASE_URI='postgresql+psycopg2://pyra:lotus@localhost/e_may_test'
+    SQLALCHEMY_DATABASE_URI='postgresql+psycopg2://ermoh:12345@localhost/e_may_test'
 
 config_options = {
 'development':DevConfig,

@@ -37,7 +37,7 @@ deactivate () {
 # unset irrelevant variables
 deactivate nondestructive
 
-VIRTUAL_ENV="/home/pyra/Core/Emergency/virtual"
+VIRTUAL_ENV="/home/ermoh/Desktop/spare-projo/spare2/Emergency_app/virtual"
 export VIRTUAL_ENV
 
 _OLD_VIRTUAL_PATH="$PATH"
