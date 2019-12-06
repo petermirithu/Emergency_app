@@ -410,8 +410,9 @@
     #a:hover {
         color: black !important;
     }
+
     #slide {
-    height: 50vh !important;
+        height: 50vh !important;
     }
 
     #slide-img {
@@ -432,7 +433,7 @@
             </div>
 
             <div id="mainListDiv" class="main_list">
-                <ul class="navlinks">                    
+                <ul class="navlinks">
                     <!-- emergency drop down -->
                     <div class="dropdown">
                         <a class="bb" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
@@ -454,13 +455,13 @@
                     </div>
                     <li><a href="{{url_for('main.article')}}" style="padding-left: 15px;">News</a></li>
                     <li><a href="{{url_for('main.solution')}}">Solutions</a></li>
-                                        
+
                     <!-- authentication -->
                     {% if current_user.is_authenticated %}
                     <li><a href="{{url_for('main.chatbox',category='none')}}">Services</a></li>
 
-                    <div><a class="bb" id="dropdownMenuButton" data-toggle="dropdown"
-                            aria-haspopup="true" aria-expanded="false">{{current_user.username}}</a>
+                    <div><a class="bb" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
+                            aria-expanded="false">{{current_user.username}}</a>
                         <div id="drop" class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                             <a href="{{url_for('main.profile',yusername=current_user.username)}}" class="dropdown-item"
                                 style="color:lightblue">Profile</a>
@@ -468,7 +469,7 @@
                                 Out</a>
                         </div>
                     </div>
-                    
+
                     {% else %}
                     <ul class="navlinks">
                         <li>
@@ -489,38 +490,40 @@
         </div>
     </nav>
     <div class="bd-example" id="slidy">
-    <div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel" id="slide">
-        <div class="carousel-inner">
-            <div class="carousel-item active">
-                <img src="https://t4.ftcdn.net/jpg/01/29/27/79/240_F_129277968_ebx6W45pOdbdy3kFxZtfpJcoIeiTwpkR.jpg"
-                    class="d-block w-100" alt="..." id="slide-img">
-                <div class="carousel-caption d-none d-md-block">
-                    <h5 class="wow slideInLeft" data-wow-duration="2s">First slide label</h5>
-                    <p class="wow slideInRight" data-wow-duration="2s">Nulla vitae elit libero, a pharetra augue mollis
-                        interdum.</p>
+        <div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel" id="slide">
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <img src="https://t4.ftcdn.net/jpg/01/29/27/79/240_F_129277968_ebx6W45pOdbdy3kFxZtfpJcoIeiTwpkR.jpg"
+                        class="d-block w-100" alt="..." id="slide-img">
+                    <div class="carousel-caption d-none d-md-block">
+                        <h5 class="wow slideInLeft" data-wow-duration="2s">First slide label</h5>
+                        <p class="wow slideInRight" data-wow-duration="2s">Nulla vitae elit libero, a pharetra augue
+                            mollis
+                            interdum.</p>
+                    </div>
                 </div>
-            </div>
-            <div class="carousel-item">
-                <img src="https://t4.ftcdn.net/jpg/01/29/27/79/240_F_129277968_ebx6W45pOdbdy3kFxZtfpJcoIeiTwpkR.jpg"
-                    class="d-block w-100" alt="..." id="slide-img">
-                <div class="carousel-caption d-none d-md-block">
-                    <h5 class="wow lightSpeedIn" data-wow-duration="2s">Second slide label</h5>
-                    <p class="wow fadeIn" data-wow-delay="2s">Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                    </p>
+                <div class="carousel-item">
+                    <img src="https://t4.ftcdn.net/jpg/01/29/27/79/240_F_129277968_ebx6W45pOdbdy3kFxZtfpJcoIeiTwpkR.jpg"
+                        class="d-block w-100" alt="..." id="slide-img">
+                    <div class="carousel-caption d-none d-md-block">
+                        <h5 class="wow lightSpeedIn" data-wow-duration="2s">Second slide label</h5>
+                        <p class="wow fadeIn" data-wow-delay="2s">Lorem ipsum dolor sit amet, consectetur adipiscing
+                            elit.
+                        </p>
+                    </div>
                 </div>
-            </div>
-            <div class="carousel-item">
-                <img src="https://t4.ftcdn.net/jpg/01/29/27/79/240_F_129277968_ebx6W45pOdbdy3kFxZtfpJcoIeiTwpkR.jpg"
-                    class="d-block w-100" alt="..." id="slide-img">
-                <div class="carousel-caption d-none d-md-block">
-                    <h5 class="wow slideInRight" data-wow-duration="2s">Third slide label</h5>
-                    <p class="wow slideInLeft" data-wow-duration="2s">Praesent commodo cursus magna, vel scelerisque
-                        nisl consectetur.</p>
+                <div class="carousel-item">
+                    <img src="https://t4.ftcdn.net/jpg/01/29/27/79/240_F_129277968_ebx6W45pOdbdy3kFxZtfpJcoIeiTwpkR.jpg"
+                        class="d-block w-100" alt="..." id="slide-img">
+                    <div class="carousel-caption d-none d-md-block">
+                        <h5 class="wow slideInRight" data-wow-duration="2s">Third slide label</h5>
+                        <p class="wow slideInLeft" data-wow-duration="2s">Praesent commodo cursus magna, vel scelerisque
+                            nisl consectetur.</p>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 
 
     <!-- Jquery needed -->
