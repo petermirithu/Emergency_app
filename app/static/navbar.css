@@ -397,6 +397,7 @@ body {
 
 #slide {
     height: 50vh !important;
+    padding-bottom: 10em !important;
 }
 
 #slide-img {
@@ -404,5 +405,5 @@ body {
 }
 
 #slidy {
-    opacity: 2 !important;
+    padding-bottom: 5em !important;
 }
